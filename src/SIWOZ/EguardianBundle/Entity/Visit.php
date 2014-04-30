@@ -12,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="medicine_category")
+ * @ORM\Table(name="visit")
  */
-class MedicineCategory {
+class Visit {
 
     /**
      * @ORM\Column(type="integer")
@@ -27,15 +27,20 @@ class MedicineCategory {
      * @ORM\Column(type="string", length=200)
      */
     protected $name;
-
+    
+    
+ 
     /**
-     * @ORM\OneToMany(targetEntity="Medicine", mappedBy="medicineCategory")
+     * @ORM\Column(type="string", length=200)
      */
-    protected $medicines;
+    protected $doctorName;
 
-    public function __construct() {
-        $this->medicines = new ArrayCollection();
-    }
+   
+    /**
+     * @ORM\OneToOne(targetEntity="Place")
+     * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
+     */
+    protected $placeId;
 
 
 
@@ -53,7 +58,7 @@ class MedicineCategory {
      * Set name
      *
      * @param string $name
-     * @return MedicineCategory
+     * @return Visit
      */
     public function setName($name)
     {
@@ -73,35 +78,48 @@ class MedicineCategory {
     }
 
     /**
-     * Add medicines
+     * Set doctorName
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
-     * @return MedicineCategory
+     * @param string $doctorName
+     * @return Visit
      */
-    public function addMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function setDoctorName($doctorName)
     {
-        $this->medicines[] = $medicines;
+        $this->doctorName = $doctorName;
 
         return $this;
     }
 
     /**
-     * Remove medicines
+     * Get doctorName
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
+     * @return string 
      */
-    public function removeMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function getDoctorName()
     {
-        $this->medicines->removeElement($medicines);
+        return $this->doctorName;
     }
 
     /**
-     * Get medicines
+     * Set placeId
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param \SIWOZ\EguardianBundle\Entity\Place $placeId
+     * @return Visit
      */
-    public function getMedicines()
+    public function setPlaceId(\SIWOZ\EguardianBundle\Entity\Place $placeId = null)
     {
-        return $this->medicines;
+        $this->placeId = $placeId;
+
+        return $this;
+    }
+
+    /**
+     * Get placeId
+     *
+     * @return \SIWOZ\EguardianBundle\Entity\Place 
+     */
+    public function getPlaceId()
+    {
+        return $this->placeId;
     }
 }

@@ -12,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="medicine_category")
+ * @ORM\Table(name="meal")
  */
-class MedicineCategory {
+class Meal {
 
     /**
      * @ORM\Column(type="integer")
@@ -29,15 +29,12 @@ class MedicineCategory {
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Medicine", mappedBy="medicineCategory")
+     * @ORM\Column(type="string", length=500)
      */
-    protected $medicines;
+    protected $description;
 
-    public function __construct() {
-        $this->medicines = new ArrayCollection();
-    }
-
-
+   
+    
 
     /**
      * Get id
@@ -53,7 +50,7 @@ class MedicineCategory {
      * Set name
      *
      * @param string $name
-     * @return MedicineCategory
+     * @return Meal
      */
     public function setName($name)
     {
@@ -73,35 +70,25 @@ class MedicineCategory {
     }
 
     /**
-     * Add medicines
+     * Set description
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
-     * @return MedicineCategory
+     * @param string $description
+     * @return Meal
      */
-    public function addMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function setDescription($description)
     {
-        $this->medicines[] = $medicines;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Remove medicines
+     * Get description
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
+     * @return string 
      */
-    public function removeMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function getDescription()
     {
-        $this->medicines->removeElement($medicines);
-    }
-
-    /**
-     * Get medicines
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMedicines()
-    {
-        return $this->medicines;
+        return $this->description;
     }
 }

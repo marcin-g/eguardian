@@ -12,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="medicine_category")
+ * @ORM\Table(name="test")
  */
-class MedicineCategory {
+class Test {
 
     /**
      * @ORM\Column(type="integer")
@@ -29,15 +29,14 @@ class MedicineCategory {
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Medicine", mappedBy="medicineCategory")
+     * 
+     * @ORM\ManyToOne(targetEntity="TestCategory")
+     * @ORM\JoinColumn(name="test_category_id", referencedColumnName="id")
      */
-    protected $medicines;
+    protected $testCategory;
 
-    public function __construct() {
-        $this->medicines = new ArrayCollection();
-    }
-
-
+   
+    
 
     /**
      * Get id
@@ -53,7 +52,7 @@ class MedicineCategory {
      * Set name
      *
      * @param string $name
-     * @return MedicineCategory
+     * @return Test
      */
     public function setName($name)
     {
@@ -73,35 +72,25 @@ class MedicineCategory {
     }
 
     /**
-     * Add medicines
+     * Set testCategory
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
-     * @return MedicineCategory
+     * @param \SIWOZ\EguardianBundle\Entity\TestCategory $testCategory
+     * @return Test
      */
-    public function addMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function setTestCategory(\SIWOZ\EguardianBundle\Entity\TestCategory $testCategory = null)
     {
-        $this->medicines[] = $medicines;
+        $this->testCategory = $testCategory;
 
         return $this;
     }
 
     /**
-     * Remove medicines
+     * Get testCategory
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
+     * @return \SIWOZ\EguardianBundle\Entity\TestCategory 
      */
-    public function removeMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function getTestCategory()
     {
-        $this->medicines->removeElement($medicines);
-    }
-
-    /**
-     * Get medicines
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMedicines()
-    {
-        return $this->medicines;
+        return $this->testCategory;
     }
 }

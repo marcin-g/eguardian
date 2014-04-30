@@ -12,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="medicine_category")
+ * @ORM\Table(name="test_category")
  */
-class MedicineCategory {
+class TestCategory {
 
     /**
      * @ORM\Column(type="integer")
@@ -27,15 +27,18 @@ class MedicineCategory {
      * @ORM\Column(type="string", length=200)
      */
     protected $name;
-
+    
+    
     /**
-     * @ORM\OneToMany(targetEntity="Medicine", mappedBy="medicineCategory")
+     * @ORM\Column(type="string", length=500)
      */
-    protected $medicines;
+    protected $description;
+    
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $unit;
 
-    public function __construct() {
-        $this->medicines = new ArrayCollection();
-    }
 
 
 
@@ -53,7 +56,7 @@ class MedicineCategory {
      * Set name
      *
      * @param string $name
-     * @return MedicineCategory
+     * @return TestCategory
      */
     public function setName($name)
     {
@@ -73,35 +76,48 @@ class MedicineCategory {
     }
 
     /**
-     * Add medicines
+     * Set description
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
-     * @return MedicineCategory
+     * @param string $description
+     * @return TestCategory
      */
-    public function addMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function setDescription($description)
     {
-        $this->medicines[] = $medicines;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Remove medicines
+     * Get description
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
+     * @return string 
      */
-    public function removeMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
+    public function getDescription()
     {
-        $this->medicines->removeElement($medicines);
+        return $this->description;
     }
 
     /**
-     * Get medicines
+     * Set unit
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param string $unit
+     * @return TestCategory
      */
-    public function getMedicines()
+    public function setUnit($unit)
     {
-        return $this->medicines;
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 }
