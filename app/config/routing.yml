@@ -1,0 +1,4 @@
+eguardian:
+    resource: "@EguardianBundle/Resources/config/routing.yml"
+    prefix:   /
+

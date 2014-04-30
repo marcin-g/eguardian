@@ -1,0 +1,6 @@
+eguardian_welcome:
+    pattern:  /
+    defaults: { _controller: EguardianBundle:Default:index }
+eguardian_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: EguardianBundle:Default:hello }
