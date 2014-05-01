@@ -11,10 +11,10 @@ namespace SIWOZ\EguardianBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\MealRepository")
- * @ORM\Table(name="meal")
+ * @ORM\Entity
+ * @ORM\Table(name="test_category")
  */
-class Meal {
+class TestCategory {
 
     /**
      * @ORM\Column(type="integer")
@@ -27,14 +27,20 @@ class Meal {
      * @ORM\Column(type="string", length=200)
      */
     protected $name;
-
+    
+    
     /**
      * @ORM\Column(type="string", length=500)
      */
     protected $description;
-
-   
     
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $unit;
+
+
+
 
     /**
      * Get id
@@ -50,7 +56,7 @@ class Meal {
      * Set name
      *
      * @param string $name
-     * @return Meal
+     * @return TestCategory
      */
     public function setName($name)
     {
@@ -73,7 +79,7 @@ class Meal {
      * Set description
      *
      * @param string $description
-     * @return Meal
+     * @return TestCategory
      */
     public function setDescription($description)
     {
@@ -90,5 +96,28 @@ class Meal {
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     * @return TestCategory
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string 
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 }

@@ -16,7 +16,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\EventRepository")
  * 
  */
 class TestEvent extends Event {

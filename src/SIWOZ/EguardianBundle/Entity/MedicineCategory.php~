@@ -11,10 +11,10 @@ namespace SIWOZ\EguardianBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\MealRepository")
- * @ORM\Table(name="meal")
+ * @ORM\Entity
+ * @ORM\Table(name="medicine_category")
  */
-class Meal {
+class MedicineCategory {
 
     /**
      * @ORM\Column(type="integer")
@@ -29,12 +29,15 @@ class Meal {
     protected $name;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\OneToMany(targetEntity="Medicine", mappedBy="medicineCategory")
      */
-    protected $description;
+    protected $medicines;
 
-   
-    
+    public function __construct() {
+        $this->medicines = new ArrayCollection();
+    }
+
+
 
     /**
      * Get id
@@ -50,7 +53,7 @@ class Meal {
      * Set name
      *
      * @param string $name
-     * @return Meal
+     * @return MedicineCategory
      */
     public function setName($name)
     {
@@ -70,25 +73,35 @@ class Meal {
     }
 
     /**
-     * Set description
+     * Add medicines
      *
-     * @param string $description
-     * @return Meal
+     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
+     * @return MedicineCategory
      */
-    public function setDescription($description)
+    public function addMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
     {
-        $this->description = $description;
+        $this->medicines[] = $medicines;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Remove medicines
      *
-     * @return string 
+     * @param \SIWOZ\EguardianBundle\Entity\Medicine $medicines
      */
-    public function getDescription()
+    public function removeMedicine(\SIWOZ\EguardianBundle\Entity\Medicine $medicines)
     {
-        return $this->description;
+        $this->medicines->removeElement($medicines);
+    }
+
+    /**
+     * Get medicines
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMedicines()
+    {
+        return $this->medicines;
     }
 }
