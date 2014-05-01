@@ -30,22 +30,22 @@ class GuardianUser  extends User{
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $login;
+    protected $login;
 
     /**
      * @var string
      */
-    private $password;
+    protected $password;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\Place
      */
-    private $placeId;
+    protected $placeId;
 
 
     /**
