@@ -4,3 +4,23 @@ eguardian_welcome:
 eguardian_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: EguardianBundle:Default:hello }
+eguardian_place:
+    pattern:  /place/{id}
+    defaults: { _controller: EguardianBundle:User:place }
+    methods:  [GET]
+eguardian_put_place:
+    pattern:  /place
+    defaults: { _controller: EguardianBundle:User:putPlace }
+    methods:  [PUT]
+eguardian_put_senior_user:
+    pattern:  /seniorUser
+    defaults: { _controller: EguardianBundle:User:putSeniorUser }
+    methods:  [PUT]
+eguardian_put_guardian_user:
+    pattern:  /guardianUser
+    defaults: { _controller: EguardianBundle:User:putGuardianUser }
+    methods:  [PUT]
+eguardian_get_user:
+    pattern:  /user/{id}
+    defaults: { _controller: EguardianBundle:User:getUser }
+    methods:  [GET]

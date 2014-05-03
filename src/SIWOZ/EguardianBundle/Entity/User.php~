@@ -38,10 +38,10 @@ class User {
 
    
     /**
-     * @ORM\OneToOne(targetEntity="Place")
+     * @ORM\OneToOne(targetEntity="Place",cascade={"persist"})
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      */
-    protected $placeId;
+    protected $place;
 
 
 
@@ -102,25 +102,25 @@ class User {
     }
 
     /**
-     * Set placeId
+     * Set place
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Place $placeId
+     * @param \SIWOZ\EguardianBundle\Entity\Place $place
      * @return User
      */
-    public function setPlaceId(\SIWOZ\EguardianBundle\Entity\Place $placeId = null)
+    public function setPlace(\SIWOZ\EguardianBundle\Entity\Place $place = null)
     {
-        $this->placeId = $placeId;
+        $this->place = $place;
 
         return $this;
     }
 
     /**
-     * Get placeId
+     * Get place
      *
      * @return \SIWOZ\EguardianBundle\Entity\Place 
      */
-    public function getPlaceId()
+    public function getPlace()
     {
-        return $this->placeId;
+        return $this->place;
     }
 }

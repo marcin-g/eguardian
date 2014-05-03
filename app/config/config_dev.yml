@@ -10,6 +10,11 @@ framework:
 web_profiler:
     toolbar: true
     intercept_redirects: false
+    
+jms_serializer:
+        property_naming:
+            separator:  _
+            lower_case: false
 
 monolog:
     handlers:

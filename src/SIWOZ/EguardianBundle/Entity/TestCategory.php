@@ -8,6 +8,7 @@
 
 namespace SIWOZ\EguardianBundle\Entity;
 
+use JMS\Serializer\Annotation\Type;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,22 +21,26 @@ class TestCategory {
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Type("string")
      */
     protected $name;
     
     
     /**
      * @ORM\Column(type="string", length=500)
+     * @Type("string")
      */
     protected $description;
     
     /**
      * @ORM\Column(type="string", length=50)
+     * @Type("string")
      */
     protected $unit;
 

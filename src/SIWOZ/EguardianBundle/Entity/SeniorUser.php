@@ -8,7 +8,9 @@
 
 namespace SIWOZ\EguardianBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
  * 
@@ -18,6 +20,7 @@ class SeniorUser  extends User{
     /**
      * @ORM\ManyToMany(targetEntity="GuardianUser", inversedBy="seniors")
      * @ORM\JoinColumn(name="guardian_user_id", referencedColumnName="id")
+     * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\GuardianUser>")
      */
     protected $guardians;
 
@@ -28,80 +31,29 @@ class SeniorUser  extends User{
 
     /**
      * @var integer
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $login;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $password;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\Place
+     * @Type("SIWOZ\EguardianBundle\Entity\Place")
      */
-    protected $placeId;
+    protected $place;
 
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set login
-     *
-     * @param string $login
-     * @return SeniorUser
-     */
-    public function setLogin($login)
-    {
-        $this->login = $login;
-
-        return $this;
-    }
-
-    /**
-     * Get login
-     *
-     * @return string 
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return SeniorUser
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
 
     /**
      * Add guardians
@@ -134,28 +86,5 @@ class SeniorUser  extends User{
     public function getGuardians()
     {
         return $this->guardians;
-    }
-
-    /**
-     * Set placeId
-     *
-     * @param \SIWOZ\EguardianBundle\Entity\Place $placeId
-     * @return SeniorUser
-     */
-    public function setPlaceId(\SIWOZ\EguardianBundle\Entity\Place $placeId = null)
-    {
-        $this->placeId = $placeId;
-
-        return $this;
-    }
-
-    /**
-     * Get placeId
-     *
-     * @return \SIWOZ\EguardianBundle\Entity\Place 
-     */
-    public function getPlaceId()
-    {
-        return $this->placeId;
     }
 }

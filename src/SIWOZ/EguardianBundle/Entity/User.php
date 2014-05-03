@@ -9,6 +9,7 @@
 namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
@@ -16,6 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"guardian" = "GuardianUser", "senior" = "SeniorUser"})
+ * @Discriminator(field = "discr", map = {"guardian" = "SIWOZ\EguardianBundle\Entity\GuardianUser", "senior" = "SIWOZ\EguardianBundle\Entity\SeniorUser"})
  */
 class User {
 
@@ -23,25 +25,29 @@ class User {
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Type("string")
      */
     protected $login;
     
     /**
      * @ORM\Column(type="string", length=500)
+     * @Type("string")
      */
     protected $password;
 
    
     /**
-     * @ORM\OneToOne(targetEntity="Place")
+     * @ORM\OneToOne(targetEntity="Place",cascade={"persist"})
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
+     * @Type("SIWOZ\EguardianBundle\Entity\Place")
      */
-    protected $placeId;
+    protected $place;
 
 
 
@@ -102,25 +108,25 @@ class User {
     }
 
     /**
-     * Set placeId
+     * Set place
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Place $placeId
+     * @param \SIWOZ\EguardianBundle\Entity\Place $place
      * @return User
      */
-    public function setPlaceId(\SIWOZ\EguardianBundle\Entity\Place $placeId = null)
+    public function setPlace(\SIWOZ\EguardianBundle\Entity\Place $place = null)
     {
-        $this->placeId = $placeId;
+        $this->place = $place;
 
         return $this;
     }
 
     /**
-     * Get placeId
+     * Get place
      *
      * @return \SIWOZ\EguardianBundle\Entity\Place 
      */
-    public function getPlaceId()
+    public function getPlace()
     {
-        return $this->placeId;
+        return $this->place;
     }
 }

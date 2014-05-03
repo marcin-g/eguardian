@@ -9,7 +9,7 @@
 namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use JMS\Serializer\Annotation\Type;
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\TestRepository")
  * @ORM\Table(name="test")
@@ -20,11 +20,13 @@ class Test {
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Type("string")
      */
     protected $name;
 
@@ -32,6 +34,7 @@ class Test {
      * 
      * @ORM\ManyToOne(targetEntity="TestCategory")
      * @ORM\JoinColumn(name="test_category_id", referencedColumnName="id")
+     * @Type("SIWOZ\EguardianBundle\Entity\TestCategory")
      */
     protected $testCategory;
 
