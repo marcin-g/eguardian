@@ -28,3 +28,7 @@ eguardian_update_user:
     pattern:  /user
     defaults: { _controller: EguardianBundle:User:updateUser }
     methods:  [POST]
+eguardian_send_notification:
+    pattern:  /send
+    defaults: { _controller: EguardianBundle:Notification:send }
+    methods:  [GET]
