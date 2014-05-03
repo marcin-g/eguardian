@@ -24,7 +24,7 @@ class VisitEvent extends Event {
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Visit")
+     * @ORM\ManyToOne(targetEntity="Visit",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="visit_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Visit")
      */

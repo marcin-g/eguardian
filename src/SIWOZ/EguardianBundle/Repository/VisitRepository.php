@@ -5,6 +5,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+namespace SIWOZ\EguardianBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 /**
  * Description of VisitRepository

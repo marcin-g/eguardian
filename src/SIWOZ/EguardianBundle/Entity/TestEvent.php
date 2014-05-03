@@ -24,7 +24,7 @@ class TestEvent extends Event {
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Test")
+     * @ORM\ManyToOne(targetEntity="Test",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="test_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Test")
      */

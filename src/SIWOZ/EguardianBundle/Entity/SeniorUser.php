@@ -11,6 +11,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\MaxDepth;
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
  * 
@@ -21,6 +22,7 @@ class SeniorUser  extends User{
      * @ORM\ManyToMany(targetEntity="GuardianUser", inversedBy="seniors")
      * @ORM\JoinColumn(name="guardian_user_id", referencedColumnName="id")
      * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\GuardianUser>")
+     * @MaxDepth(1)
      */
     protected $guardians;
 

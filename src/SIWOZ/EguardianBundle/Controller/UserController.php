@@ -68,23 +68,26 @@ class UserController extends Controller {
 
     public function putGuardianUserAction() {
         $json = $this->getRequest()->getContent();
-        $em = $this->getDoctrine()->getManager();
         $guardianUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
-        $em->persist($guardianUser);
-        $em->flush();
+        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($guardianUser);
         return new Response($this->serializer->serialize($guardianUser, 'json'));
     }
    public function addGuardianToSeniorAction() {
         $json = $this->getRequest()->getContent();
-        $em = $this->getDoctrine()->getManager();
-        $guardianUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
-        $em->persist($guardianUser);
-        $em->flush();
-        return new Response($this->serializer->serialize($guardianUser, 'json'));
+        $seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
+        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($seniorUser);
+        return new Response($this->serializer->serialize($seniorUser, 'json'));
     }
     
-    public function getUserAction($id){
-        $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->find($id);
+    public function getUserAction($login){
+        $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->findByLogin($login);
+        return new Response($this->serializer->serialize($user, 'json'));
+    }
+    
+   public function updateUserAction(){
+        $json = $this->getRequest()->getContent();
+        $user= $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\User', 'json');
+        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($user);
         return new Response($this->serializer->serialize($user, 'json'));
     }
     

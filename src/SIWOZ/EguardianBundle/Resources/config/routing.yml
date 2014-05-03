@@ -13,14 +13,18 @@ eguardian_put_place:
     defaults: { _controller: EguardianBundle:User:putPlace }
     methods:  [PUT]
 eguardian_put_senior_user:
-    pattern:  /seniorUser
+    pattern:  /user/senior
     defaults: { _controller: EguardianBundle:User:putSeniorUser }
     methods:  [PUT]
 eguardian_put_guardian_user:
-    pattern:  /guardianUser
+    pattern:  /user/guardian
     defaults: { _controller: EguardianBundle:User:putGuardianUser }
-    methods:  [PUT]
+    methods:  [PUT]    
 eguardian_get_user:
-    pattern:  /user/{id}
+    pattern:  /user/{login}
     defaults: { _controller: EguardianBundle:User:getUser }
     methods:  [GET]
+eguardian_update_user:
+    pattern:  /user
+    defaults: { _controller: EguardianBundle:User:updateUser }
+    methods:  [POST]

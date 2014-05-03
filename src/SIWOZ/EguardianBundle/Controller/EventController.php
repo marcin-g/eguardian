@@ -5,13 +5,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-namespace SIWOZ\EguardianBundle\Repository;
-use Doctrine\ORM\EntityRepository;
+
+namespace SIWOZ\EguardianBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+
+
 /**
- * Description of VisitRepository
+ * Description of EventController
  *
  * @author Marcin
  */
-class MedicineRepository extends EntityRepository{
+class EventController extends Controller{
     //put your code here
 }

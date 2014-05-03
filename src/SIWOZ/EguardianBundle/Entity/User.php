@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Discriminator;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
@@ -43,7 +44,7 @@ class User {
 
    
     /**
-     * @ORM\OneToOne(targetEntity="Place",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Place",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
      */

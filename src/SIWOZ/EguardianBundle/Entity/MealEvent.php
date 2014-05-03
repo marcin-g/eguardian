@@ -24,7 +24,7 @@ class MealEvent extends Event {
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Meal")
+     * @ORM\ManyToOne(targetEntity="Meal",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="meal_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Meal")
      */

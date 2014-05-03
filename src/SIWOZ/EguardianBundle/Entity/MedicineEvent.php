@@ -24,7 +24,7 @@ class MedicineEvent extends Event {
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Medicine")
+     * @ORM\ManyToOne(targetEntity="Medicine",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="medicine_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Medicine")
      * 

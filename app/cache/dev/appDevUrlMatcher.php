@@ -135,76 +135,89 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // _welcome
+        // eguardian_welcome
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', '_welcome');
+                return $this->redirect($pathinfo.'/', 'eguardian_welcome');
             }
 
-            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::indexAction',  '_route' => '_welcome',);
+            return array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\DefaultController::indexAction',  '_route' => 'eguardian_welcome',);
         }
 
-        if (0 === strpos($pathinfo, '/demo')) {
-            if (0 === strpos($pathinfo, '/demo/secured')) {
-                if (0 === strpos($pathinfo, '/demo/secured/log')) {
-                    if (0 === strpos($pathinfo, '/demo/secured/login')) {
-                        // _demo_login
-                        if ($pathinfo === '/demo/secured/login') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::loginAction',  '_route' => '_demo_login',);
-                        }
+        // eguardian_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'eguardian_homepage')), array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\DefaultController::helloAction',));
+        }
 
-                        // _security_check
-                        if ($pathinfo === '/demo/secured/login_check') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::securityCheckAction',  '_route' => '_security_check',);
-                        }
-
-                    }
-
-                    // _demo_logout
-                    if ($pathinfo === '/demo/secured/logout') {
-                        return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::logoutAction',  '_route' => '_demo_logout',);
-                    }
-
+        if (0 === strpos($pathinfo, '/place')) {
+            // eguardian_place
+            if (preg_match('#^/place/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_eguardian_place;
                 }
 
-                if (0 === strpos($pathinfo, '/demo/secured/hello')) {
-                    // acme_demo_secured_hello
-                    if ($pathinfo === '/demo/secured/hello') {
-                        return array (  'name' => 'World',  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',  '_route' => 'acme_demo_secured_hello',);
-                    }
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'eguardian_place')), array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::placeAction',));
+            }
+            not_eguardian_place:
 
-                    // _demo_secured_hello
-                    if (preg_match('#^/demo/secured/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',));
-                    }
-
-                    // _demo_secured_hello_admin
-                    if (0 === strpos($pathinfo, '/demo/secured/hello/admin') && preg_match('#^/demo/secured/hello/admin/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello_admin')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloadminAction',));
-                    }
-
+            // eguardian_put_place
+            if ($pathinfo === '/place') {
+                if ($this->context->getMethod() != 'PUT') {
+                    $allow[] = 'PUT';
+                    goto not_eguardian_put_place;
                 }
 
+                return array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::putPlaceAction',  '_route' => 'eguardian_put_place',);
             }
+            not_eguardian_put_place:
 
-            // _demo
-            if (rtrim($pathinfo, '/') === '/demo') {
-                if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', '_demo');
+        }
+
+        if (0 === strpos($pathinfo, '/user')) {
+            // eguardian_put_senior_user
+            if ($pathinfo === '/user/senior') {
+                if ($this->context->getMethod() != 'PUT') {
+                    $allow[] = 'PUT';
+                    goto not_eguardian_put_senior_user;
                 }
 
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::indexAction',  '_route' => '_demo',);
+                return array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::putSeniorUserAction',  '_route' => 'eguardian_put_senior_user',);
             }
+            not_eguardian_put_senior_user:
 
-            // _demo_hello
-            if (0 === strpos($pathinfo, '/demo/hello') && preg_match('#^/demo/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::helloAction',));
-            }
+            // eguardian_put_guardian_user
+            if ($pathinfo === '/user/guardian') {
+                if ($this->context->getMethod() != 'PUT') {
+                    $allow[] = 'PUT';
+                    goto not_eguardian_put_guardian_user;
+                }
 
-            // _demo_contact
-            if ($pathinfo === '/demo/contact') {
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::contactAction',  '_route' => '_demo_contact',);
+                return array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::putGuardianUserAction',  '_route' => 'eguardian_put_guardian_user',);
             }
+            not_eguardian_put_guardian_user:
+
+            // eguardian_get_user
+            if (preg_match('#^/user/(?P<login>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_eguardian_get_user;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'eguardian_get_user')), array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::getUserAction',));
+            }
+            not_eguardian_get_user:
+
+            // eguardian_update_user
+            if ($pathinfo === '/user') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_eguardian_update_user;
+                }
+
+                return array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::updateUserAction',  '_route' => 'eguardian_update_user',);
+            }
+            not_eguardian_update_user:
 
         }
 
