@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer;
 use Curl\Curl;
+use Buzz\Message\Request as BuzzRequest;
+use Buzz\Message\Response as BuzzResponse;
+use Buzz\Client\FileGetContents;
 
 /**
  * Description of EventController
@@ -38,32 +41,22 @@ class NotificationController extends Controller {
         $notification = new \SIWOZ\EguardianBundle\Entity\Notification();
         $notification->setData($data);
         $registration_ids = new ArrayCollection();
-        $registration_ids->add("h7senelUq1IJHrjSooCnc2sO08rD6bgdjvHtGNI4");
+        $registration_ids->add("APA91bGGTv7U4_gtXVp_cLl02_8OrAeSNt3QlcGJIpux5zC_CbRrW8AdgUEyOt4YLoL3qD6toNGsT945nzph2KX_8XGckhYx6lIsvhuS2pUbbTtzBfRrbJJ3TlbulzS86mV8MfKtUP9i3pOh7senelUq1IJHrjSooCnc2sO08rD6bgdjvHtGNI4");
         $notification->setRegistration_ids($registration_ids);
         $jsonContent = $this->serializer->serialize($notification, 'json');
-        $ch = curl_init();
-       // curl_setopt($ch, CURLOPT_VERBOSE, 1L);
-        //curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_URL, 'http://android.googleapis.com/gcm/send');
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonContent);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
-','Content-type: application/json','Content-length: '.strlen($jsonContent))); // Assuming you're requesting JSON
-
-//TO odkomentowac
-       /* $resulta = curl_exec($ch);
-        if (curl_errno($ch)) {
-            
-        return new Response(curl_error($ch));
-        } else {
-            curl_close($ch);
-        }*/
         
-        return new Response(json_encode(curl_getinfo($ch)));
-// If using JSON...
-        //  $data = json_decode($response);
-      //  return new Response($response);
+        $request = new BuzzRequest('POST', '/gcm/send', 'http://android.googleapis.com');
+        $response = new BuzzResponse();
+        $request->addHeaders(array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
+          '));
+         $request->addHeaders(array('Content-type: application/json'));
+         $request->addHeaders(array('Content-length: ' . strlen((string)$jsonContent)));
+         $request->setContent($jsonContent);
+        $client = new FileGetContents();
+        $client->send($request, $response);
+
+
+        return new Response($response);
     }
 
 }

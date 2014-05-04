@@ -42,6 +42,7 @@ class appDevDebugProjectContainer extends Container
             'assetic.filter_manager' => 'getAssetic_FilterManagerService',
             'assetic.request_listener' => 'getAssetic_RequestListenerService',
             'assetic.value_supplier.default' => 'getAssetic_ValueSupplier_DefaultService',
+            'buzz' => 'getBuzzService',
             'cache_clearer' => 'getCacheClearerService',
             'cache_warmer' => 'getCacheWarmerService',
             'controller_name_converter' => 'getControllerNameConverterService',
@@ -353,6 +354,22 @@ class appDevDebugProjectContainer extends Container
     protected function getAssetic_RequestListenerService()
     {
         return $this->services['assetic.request_listener'] = new \Symfony\Bundle\AsseticBundle\EventListener\RequestListener();
+    }
+
+    /**
+     * Gets the 'buzz' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return Buzz\Browser A Buzz\Browser instance.
+     */
+    protected function getBuzzService()
+    {
+        $a = new \Buzz\Client\Curl();
+        $a->setTimeout(5);
+
+        return $this->services['buzz'] = new \Buzz\Browser($a, new \Buzz\Message\Factory\Factory());
     }
 
     /**
@@ -3437,6 +3454,7 @@ class appDevDebugProjectContainer extends Container
                 'DoctrineBundle' => 'Doctrine\\Bundle\\DoctrineBundle\\DoctrineBundle',
                 'SensioFrameworkExtraBundle' => 'Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle',
                 'EguardianBundle' => 'SIWOZ\\EguardianBundle\\EguardianBundle',
+                'SensioBuzzBundle' => 'Sensio\\Bundle\\BuzzBundle\\SensioBuzzBundle',
                 'AcmeDemoBundle' => 'Acme\\DemoBundle\\AcmeDemoBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
@@ -3951,6 +3969,10 @@ class appDevDebugProjectContainer extends Container
             'sensio_framework_extra.converter.doctrine.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\Request\\ParamConverter\\DoctrineParamConverter',
             'sensio_framework_extra.converter.datetime.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\Request\\ParamConverter\\DateTimeParamConverter',
             'sensio_framework_extra.view.listener.class' => 'Sensio\\Bundle\\FrameworkExtraBundle\\EventListener\\TemplateListener',
+            'buzz.client.class' => 'Buzz\\Client\\Curl',
+            'buzz.message_factory.class' => 'Buzz\\Message\\Factory\\Factory',
+            'buzz.browser.class' => 'Buzz\\Browser',
+            'buzz.client.timeout' => 5,
             'web_profiler.controller.profiler.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ProfilerController',
             'web_profiler.controller.router.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\RouterController',
             'web_profiler.controller.exception.class' => 'Symfony\\Bundle\\WebProfilerBundle\\Controller\\ExceptionController',

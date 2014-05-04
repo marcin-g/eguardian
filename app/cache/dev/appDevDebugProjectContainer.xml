@@ -17,6 +17,7 @@
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="EguardianBundle">SIWOZ\EguardianBundle\EguardianBundle</parameter>
+      <parameter key="SensioBuzzBundle">Sensio\Bundle\BuzzBundle\SensioBuzzBundle</parameter>
       <parameter key="AcmeDemoBundle">Acme\DemoBundle\AcmeDemoBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -509,6 +510,10 @@
     <parameter key="sensio_framework_extra.converter.doctrine.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter</parameter>
     <parameter key="sensio_framework_extra.converter.datetime.class">Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter</parameter>
     <parameter key="sensio_framework_extra.view.listener.class">Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener</parameter>
+    <parameter key="buzz.client.class">Buzz\Client\Curl</parameter>
+    <parameter key="buzz.message_factory.class">Buzz\Message\Factory\Factory</parameter>
+    <parameter key="buzz.browser.class">Buzz\Browser</parameter>
+    <parameter key="buzz.client.timeout">5</parameter>
     <parameter key="web_profiler.controller.profiler.class">Symfony\Bundle\WebProfilerBundle\Controller\ProfilerController</parameter>
     <parameter key="web_profiler.controller.router.class">Symfony\Bundle\WebProfilerBundle\Controller\RouterController</parameter>
     <parameter key="web_profiler.controller.exception.class">Symfony\Bundle\WebProfilerBundle\Controller\ExceptionController</parameter>
@@ -2425,6 +2430,18 @@
       </argument>
       <argument type="service" id="security.authentication.trust_resolver" on-invalid="null"/>
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
+    </service>
+    <service id="buzz" class="Buzz\Browser">
+      <argument type="service">
+        <service class="Buzz\Client\Curl" public="false">
+          <call method="setTimeout">
+            <argument>5</argument>
+          </call>
+        </service>
+      </argument>
+      <argument type="service">
+        <service class="Buzz\Message\Factory\Factory" public="false"/>
+      </argument>
     </service>
     <service id="twig.extension.acme.demo" class="Acme\DemoBundle\Twig\Extension\DemoExtension" public="false">
       <tag name="twig.extension"/>

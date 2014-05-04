@@ -16,6 +16,7 @@ return array(
     'Sensio\\Bundle\\GeneratorBundle' => array($vendorDir . '/sensio/generator-bundle'),
     'Sensio\\Bundle\\FrameworkExtraBundle' => array($vendorDir . '/sensio/framework-extra-bundle'),
     'Sensio\\Bundle\\DistributionBundle' => array($vendorDir . '/sensio/distribution-bundle'),
+    'Sensio\\Bundle\\BuzzBundle' => array($vendorDir . '/sensio/buzz-bundle'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src'),
     'PhpCollection' => array($vendorDir . '/phpcollection/phpcollection/src'),
@@ -33,6 +34,7 @@ return array(
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
     'Doctrine\\Bundle\\DoctrineBundle' => array($vendorDir . '/doctrine/doctrine-bundle'),
     'Curl' => array($vendorDir . '/curl/curl/src'),
+    'Buzz' => array($vendorDir . '/kriswallsmith/buzz/lib'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
     '' => array($baseDir . '/src'),
 );
