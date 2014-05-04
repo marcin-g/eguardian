@@ -42,28 +42,28 @@ class NotificationController extends Controller {
         $notification->setRegistration_ids($registration_ids);
         $jsonContent = $this->serializer->serialize($notification, 'json');
         $ch = curl_init();
+       // curl_setopt($ch, CURLOPT_VERBOSE, 1L);
+        //curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_URL, 'http://android.googleapis.com/gcm/send');
-        
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonContent);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonContent);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
 ','Content-type: application/json','Content-length: '.strlen($jsonContent))); // Assuming you're requesting JSON
 
-
-        $resulta = curl_exec($ch);
+//TO odkomentowac
+       /* $resulta = curl_exec($ch);
         if (curl_errno($ch)) {
             
         return new Response(curl_error($ch));
         } else {
             curl_close($ch);
-        }
+        }*/
         
-        return new Response($resulta);
+        return new Response(json_encode(curl_getinfo($ch)));
 // If using JSON...
         //  $data = json_decode($response);
-        return new Response($response);
+      //  return new Response($response);
     }
 
 }
