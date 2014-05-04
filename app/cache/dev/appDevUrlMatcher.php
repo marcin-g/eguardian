@@ -221,6 +221,17 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // eguardian_send_notification
+        if ($pathinfo === '/send') {
+            if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                $allow = array_merge($allow, array('GET', 'HEAD'));
+                goto not_eguardian_send_notification;
+            }
+
+            return array (  '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\NotificationController::sendAction',  '_route' => 'eguardian_send_notification',);
+        }
+        not_eguardian_send_notification:
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

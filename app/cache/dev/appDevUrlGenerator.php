@@ -38,6 +38,7 @@ class appDevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         'eguardian_put_guardian_user' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::putGuardianUserAction',  ),  2 =>   array (    '_method' => 'PUT',  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user/guardian',    ),  ),  4 =>   array (  ),),
         'eguardian_get_user' => array (  0 =>   array (    0 => 'login',  ),  1 =>   array (    '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::getUserAction',  ),  2 =>   array (    '_method' => 'GET',  ),  3 =>   array (    0 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]++',      3 => 'login',    ),    1 =>     array (      0 => 'text',      1 => '/user',    ),  ),  4 =>   array (  ),),
         'eguardian_update_user' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\UserController::updateUserAction',  ),  2 =>   array (    '_method' => 'POST',  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/user',    ),  ),  4 =>   array (  ),),
+        'eguardian_send_notification' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'SIWOZ\\EguardianBundle\\Controller\\NotificationController::sendAction',  ),  2 =>   array (    '_method' => 'GET',  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/send',    ),  ),  4 =>   array (  ),),
     );
 
     /**

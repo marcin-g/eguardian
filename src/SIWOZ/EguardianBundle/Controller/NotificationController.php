@@ -41,39 +41,17 @@ class NotificationController extends Controller {
         $registration_ids->add("h7senelUq1IJHrjSooCnc2sO08rD6bgdjvHtGNI4");
         $notification->setRegistration_ids($registration_ids);
         $jsonContent = $this->serializer->serialize($notification, 'json');
-        // $response=new Response($jsonContent);
-
-        /*  $curl = new Curl();
-
-          $curl->setHeader("Content-Type", "application/json");
-          $curl->setHeader("Authorization", "key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
-          ");
-          $curl->post("https://android.googleapis.com/gcm/send", array($jsonContent)); */
-        /*    $request = new Request();
-          $request->setMethod("POST");
-          $request->headers->set("Content-Type","application/json");
-          $request->headers->set("Authorization","key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
-          ");
-          $request->request=$jsonContent; */
-        /* $subRequest = $request->duplicate(array(), null, $path);
-
-          $httpKernel = $this->container->get('http_kernel');
-          $response = $httpKernel->handle(
-          $subRequest,
-          HttpKernelInterface::SUB_REQUEST
-          ); */
-        // $curl->close();
-
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
-','Content-type: application/json')); // Assuming you're requesting JSON
-
-
+        curl_setopt($ch, CURLOPT_URL, 'http://android.googleapis.com/gcm/send');
+        
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonContent);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
+','Content-type: application/json','Content-length: '.strlen($jsonContent))); // Assuming you're requesting JSON
+
+
         $resulta = curl_exec($ch);
         if (curl_errno($ch)) {
             
