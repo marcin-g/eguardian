@@ -11,6 +11,9 @@ namespace SIWOZ\EguardianBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Discriminator;
+use JMS\Serializer\Annotation\MaxDepth;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
@@ -19,6 +22,7 @@ use JMS\Serializer\Annotation\Discriminator;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"guardian" = "GuardianUser", "senior" = "SeniorUser"})
  * @Discriminator(field = "discr", map = {"guardian" = "SIWOZ\EguardianBundle\Entity\GuardianUser", "senior" = "SIWOZ\EguardianBundle\Entity\SeniorUser"})
+ * @ExclusionPolicy("none")
  */
 class User {
 
@@ -39,6 +43,8 @@ class User {
     /**
      * @ORM\Column(type="string", length=500)
      * @Type("string")
+     * @Exclude
+     * 
      */
     protected $password;
 
@@ -49,7 +55,14 @@ class User {
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
      */
     protected $place;
-
+    
+    /**
+     * @ORM\Column(type="string", length=512)
+     * @Type("string")
+     * @Exclude
+     * 
+     */
+    protected $registeredId;
 
 
     /**
@@ -129,5 +142,28 @@ class User {
     public function getPlace()
     {
         return $this->place;
+    }
+
+    /**
+     * Set registeredId
+     *
+     * @param string $registeredId
+     * @return User
+     */
+    public function setRegisteredId($registeredId)
+    {
+        $this->registeredId = $registeredId;
+
+        return $this;
+    }
+
+    /**
+     * Get registeredId
+     *
+     * @return string 
+     */
+    public function getRegisteredId()
+    {
+        return $this->registeredId;
     }
 }

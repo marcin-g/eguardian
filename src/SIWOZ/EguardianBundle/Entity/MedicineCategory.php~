@@ -8,7 +8,9 @@
 
 namespace SIWOZ\EguardianBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity
@@ -20,16 +22,20 @@ class MedicineCategory {
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
+     * 
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Type("string")
      */
     protected $name;
 
     /**
      * @ORM\OneToMany(targetEntity="Medicine", mappedBy="medicineCategory")
+     * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\Medicine>")
      */
     protected $medicines;
 

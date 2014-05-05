@@ -26,6 +26,10 @@ class Data {
      * @Type("string")
      */
     protected $value;
+    /**
+     * @Type("SIWOZ\EguardianBundle\Entity\Place")
+     */
+    protected $place;
 
     public function getKey() {
         return $this->key;
@@ -34,6 +38,10 @@ class Data {
     public function getValue() {
         return $this->value;
     }
+    
+    public function getPlace() {
+        return $this->place;
+    }
 
     public function setKey($key) {
         $this->key = $key;
@@ -41,6 +49,10 @@ class Data {
 
     public function setValue($value) {
         $this->value = $value;
+    }    
+    
+    public function setPlace($place) {
+        $this->place = $place;
     }
 
 

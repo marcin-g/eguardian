@@ -14,6 +14,7 @@ namespace SIWOZ\EguardianBundle\Entity;
  * @author Marcin
  */
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\EventRepository")
@@ -23,33 +24,39 @@ class TestEvent extends Event {
 
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Test")
+     * @ORM\ManyToOne(targetEntity="Test",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="test_id", referencedColumnName="id")
+     * @Type("SIWOZ\EguardianBundle\Entity\Test")
      */
     protected $test;
 
     /**
      * @var integer
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @var \DateTime
+     * @Type("date")
      */
     protected $startDate;
 
     /**
      * @var \DateTime
+     * @Type("date")
      */
     protected $interval;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\SeniorUser
+     * @Type("SIWOZ\EguardianBundle\Entity\SeniorUser")
      */
     protected $senior;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\GuardianUser
+     * @Type("SIWOZ\EguardianBundle\Entity\GuardianUser")
      */
     protected $guardian;
 

@@ -9,6 +9,7 @@
 namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\VisitRepository")
@@ -20,11 +21,13 @@ class Visit {
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Type("string")
      */
     protected $name;
     
@@ -32,6 +35,7 @@ class Visit {
  
     /**
      * @ORM\Column(type="string", length=200)
+     * @Type("string")
      */
     protected $doctorName;
 
@@ -39,8 +43,9 @@ class Visit {
     /**
      * @ORM\OneToOne(targetEntity="Place")
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
+     * @Type("SIWOZ\EguardianBundle\Entity\Place")
      */
-    protected $placeId;
+    protected $place;
 
 
 
@@ -106,9 +111,9 @@ class Visit {
      * @param \SIWOZ\EguardianBundle\Entity\Place $placeId
      * @return Visit
      */
-    public function setPlaceId(\SIWOZ\EguardianBundle\Entity\Place $placeId = null)
+    public function setPlace(\SIWOZ\EguardianBundle\Entity\Place $placeId = null)
     {
-        $this->placeId = $placeId;
+        $this->place = $placeId;
 
         return $this;
     }
@@ -118,8 +123,8 @@ class Visit {
      *
      * @return \SIWOZ\EguardianBundle\Entity\Place 
      */
-    public function getPlaceId()
+    public function getPlace()
     {
-        return $this->placeId;
+        return $this->place;
     }
 }

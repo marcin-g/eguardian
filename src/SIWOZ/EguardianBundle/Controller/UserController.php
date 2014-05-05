@@ -72,11 +72,17 @@ class UserController extends Controller {
         $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($guardianUser);
         return new Response($this->serializer->serialize($guardianUser, 'json'));
     }
-   public function addGuardianToSeniorAction() {
-        $json = $this->getRequest()->getContent();
-        $seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
-        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($seniorUser);
-        return new Response($this->serializer->serialize($seniorUser, 'json'));
+   public function addGuardianToSeniorAction($guardianLogin, $seniorLogin) {
+        //$json = $this->getRequest()->getContent();
+        //$seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
+        $guardianUser=$this->getDoctrine()->getRepository('EguardianBundle:User')->addGuardianToSenior($guardianLogin, $seniorLogin);
+        return new Response($this->serializer->serialize($guardianUser, 'json'));
+    }
+    
+       public function removeGuardianToSeniorAction($guardianLogin, $seniorLogin) {
+        //$seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
+        $guardianUser=$this->getDoctrine()->getRepository('EguardianBundle:User')->removeGuardianToSenior($guardianLogin, $seniorLogin);
+        return new Response($this->serializer->serialize($guardianUser, 'json'));
     }
     
     public function getUserAction($login){

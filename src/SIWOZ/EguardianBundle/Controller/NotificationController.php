@@ -34,28 +34,41 @@ class NotificationController extends Controller {
 
     public function sendAction() {
         $data = new \SIWOZ\EguardianBundle\Entity\Data();
-        $data->setKey("klucz");
-        $data->setValue("wartosc");
+        $place = new \SIWOZ\EguardianBundle\Entity\Place();
+        $place->setApartmentNo("1");
+        $place->setCity("Zaniemyl");
+        $place->setPostCode("32444");
+        $place->setStreet("Libelrer");
+        $place->setStreetNo("2");
+        $place->setTelephoneNumber("64545666");
+        $data->setPlace($place);
+        /*$data->setKey("klucz2");
+        $data->setValue("pszemek");
         $arrayData = new ArrayCollection();
-        $arrayData->add($data);
+        $arrayData->add($data);*/
         $notification = new \SIWOZ\EguardianBundle\Entity\Notification();
         $notification->setData($data);
         $registration_ids = new ArrayCollection();
         $registration_ids->add("APA91bGGTv7U4_gtXVp_cLl02_8OrAeSNt3QlcGJIpux5zC_CbRrW8AdgUEyOt4YLoL3qD6toNGsT945nzph2KX_8XGckhYx6lIsvhuS2pUbbTtzBfRrbJJ3TlbulzS86mV8MfKtUP9i3pOh7senelUq1IJHrjSooCnc2sO08rD6bgdjvHtGNI4");
         $notification->setRegistration_ids($registration_ids);
         $jsonContent = $this->serializer->serialize($notification, 'json');
-        
+
         $request = new BuzzRequest('POST', '/gcm/send', 'http://android.googleapis.com');
         $response = new BuzzResponse();
         $request->addHeaders(array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
           '));
-         $request->addHeaders(array('Content-type: application/json'));
-         $request->addHeaders(array('Content-length: ' . strlen((string)$jsonContent)));
-         $request->setContent($jsonContent);
+        $request->addHeaders(array('Content-type: application/json'));
+        $request->addHeaders(array('Content-length: ' . strlen((string) $jsonContent)));
+        $request->setContent($jsonContent);
         $client = new FileGetContents();
-        $client->send($request, $response);
+
+        
+        
+
+         $client->send($request, $response);
 
 
+        //return new Response($jsonContent);
         return new Response($response);
     }
 

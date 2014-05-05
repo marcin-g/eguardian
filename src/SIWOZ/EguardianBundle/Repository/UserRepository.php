@@ -9,6 +9,10 @@
 namespace SIWOZ\EguardianBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Entity\GuardianUser;
+use Doctrine\ORM\Entity\SeniorUser;
+use Doctrine\ORM\Entity\User;
+
 
 /**
  * Description of VisitRepository
@@ -20,7 +24,7 @@ class UserRepository extends EntityRepository {
     public function getUserByLogin($login) {
         $query = $this->getEntityManager()
                         ->createQuery(
-                                'SELECT u FROM SIWOZ:EguardianBundle:Entity:User u
+                                'SELECT u FROM SIWOZ\EguardianBundle\Entity\User u
                                 WHERE u.login = :login'
                         )->setParameter('login', $login);
         try {
@@ -38,6 +42,25 @@ class UserRepository extends EntityRepository {
         $em = $this->getEntityManager();
         $em->merge($user);
         $em->flush();
+    }
+    
+    public function addGuardianToSenior($guardianLogin, $seniorLogin){
+        $em = $this->getEntityManager();
+        $senior=$this->getUserByLogin($seniorLogin);
+        $guardian=$this->getUserByLogin($guardianLogin);
+        $senior->addGuardian($guardian);
+        $guardian->addSenior($senior);
+        $em->flush();
+        return $guardian;
+    }
+    public function removeGuardianToSenior($guardianLogin, $seniorLogin){
+        $em = $this->getEntityManager();
+        $senior=$this->getUserByLogin($seniorLogin);
+        $guardian=$this->getUserByLogin($guardianLogin);
+        $senior->removeGuardian($guardian);
+        $guardian->removeSenior($senior);
+        $em->flush();
+        return $guardian;
     }
     //put your code here
 }

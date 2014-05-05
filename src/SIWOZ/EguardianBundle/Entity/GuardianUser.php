@@ -90,4 +90,34 @@ class GuardianUser  extends User{
     {
         return $this->seniors;
     }
+    /**
+     * @var string
+     * @Type("string")
+     * @Exclude
+     */
+    protected $registeredId;
+
+    /**
+     * @ORM\Column(type="string", length=512)
+     * @Type("string")
+     * @Exclude
+     * 
+     */
+
+    public function setRegisteredId($registeredId)
+    {
+        $this->registeredId = $registeredId;
+
+        return $this;
+    }
+
+    /**
+     * Get registeredId
+     *
+     * @return string 
+     */
+    public function getRegisteredId()
+    {
+        return $this->registeredId;
+    }
 }

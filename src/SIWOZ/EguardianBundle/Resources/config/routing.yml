@@ -28,6 +28,14 @@ eguardian_update_user:
     pattern:  /user
     defaults: { _controller: EguardianBundle:User:updateUser }
     methods:  [POST]
+eguardian_add_guardian_to_senior:
+    pattern:  /user/{guardianLogin}/{seniorLogin}
+    defaults: { _controller: EguardianBundle:User:addGuardianToSenior }
+    methods:  [PUT]
+eguardian_remove_guardian_to_senior:
+    pattern:  /user/{guardianLogin}/{seniorLogin}
+    defaults: { _controller: EguardianBundle:User:removeGuardianToSenior }
+    methods:  [DELETE]
 eguardian_send_notification:
     pattern:  /send
     defaults: { _controller: EguardianBundle:Notification:send }

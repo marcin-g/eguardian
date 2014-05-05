@@ -9,6 +9,7 @@
 namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * @ORM\Entity
@@ -20,38 +21,45 @@ class Place {
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Type("string")
      */
     protected $street;
 
     /**
      * @ORM\Column(name="street_no", type="string", length=200)
+     * @Type("string")
      */
     protected $streetNo;
     /**
      * @ORM\Column(name="apartment_no", type="string", length=200)
+     * @Type("string")
      */
     protected $apartmentNo;
     
     /**
      * @ORM\Column(type="string", length=200)
+     * @Type("string")
      */
-    protected $City;
+    protected $city;
     
     /**
      * @ORM\Column(name="postcode", type="string", length=5)
+     * @Type("string")
      */
-    protected $PostCode;
+    protected $postCode;
     
     
     /**
      * @ORM\Column(name="telephone_number", type="string", length=11)
+     * @Type("string")
      */
-    protected $TelephoneNumber;
+    protected $telephoneNumber;
     
 
     /**
@@ -141,7 +149,7 @@ class Place {
      */
     public function setCity($city)
     {
-        $this->City = $city;
+        $this->city = $city;
 
         return $this;
     }
@@ -153,7 +161,7 @@ class Place {
      */
     public function getCity()
     {
-        return $this->City;
+        return $this->city;
     }
 
     /**
@@ -164,7 +172,7 @@ class Place {
      */
     public function setPostCode($postCode)
     {
-        $this->PostCode = $postCode;
+        $this->postCode = $postCode;
 
         return $this;
     }
@@ -176,7 +184,7 @@ class Place {
      */
     public function getPostCode()
     {
-        return $this->PostCode;
+        return $this->postCode;
     }
 
     /**
@@ -187,7 +195,7 @@ class Place {
      */
     public function setTelephoneNumber($telephoneNumber)
     {
-        $this->TelephoneNumber = $telephoneNumber;
+        $this->telephoneNumber = $telephoneNumber;
 
         return $this;
     }
@@ -199,6 +207,6 @@ class Place {
      */
     public function getTelephoneNumber()
     {
-        return $this->TelephoneNumber;
+        return $this->telephoneNumber;
     }
 }

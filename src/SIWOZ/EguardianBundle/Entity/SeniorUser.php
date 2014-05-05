@@ -89,4 +89,34 @@ class SeniorUser  extends User{
     {
         return $this->guardians;
     }
+    /**
+     * @var string
+     * @Type("string")
+     * @Exclude
+     */
+    protected $registeredId;
+
+
+    /**
+     * Set registeredId
+     *
+     * @param string $registeredId
+     * @return SeniorUser
+     */
+    public function setRegisteredId($registeredId)
+    {
+        $this->registeredId = $registeredId;
+
+        return $this;
+    }
+
+    /**
+     * Get registeredId
+     *
+     * @return string 
+     */
+    public function getRegisteredId()
+    {
+        return $this->registeredId;
+    }
 }
