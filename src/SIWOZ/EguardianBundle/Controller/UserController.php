@@ -97,12 +97,10 @@ class UserController extends Controller {
         return new Response($this->serializer->serialize($user, 'json'));
     }
     public function loginAction(){
-      // $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->getUserByUsername($login);
-        return new Response("OK");
+        return new Response($this->serializer->serialize($this->get("security.context")->getToken()->getUser(), 'json'));
     }    
     public function loginGuardianAction(){
-      //  $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->getUserByUsername($login);
-        return new Response("OK");
+        return new Response($this->serializer->serialize($this->get("security.context")->getToken()->getUser(), 'json'));
     }
 
 }
