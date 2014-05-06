@@ -12,23 +12,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\MaxDepth;
+
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
  * 
  */
-class GuardianUser  extends User{
-    
+class GuardianUser extends User {
+
     /**
      * @ORM\ManyToMany(targetEntity="SeniorUser", inversedBy="guardians")
      * @ORM\JoinColumn(name="senior_user_id", referencedColumnName="id")
      * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\SeniorUser>")
      * @MaxDepth(1)
      */
-    
     protected $seniors;
 
- 
-      public function __construct() {
+    public function __construct() {
         $this->seniors = new ArrayCollection();
     }
 
@@ -42,7 +41,7 @@ class GuardianUser  extends User{
      * @var string
      * @Type("string")
      */
-    protected $login;
+    protected $username;
 
     /**
      * @var string
@@ -56,16 +55,13 @@ class GuardianUser  extends User{
      */
     protected $place;
 
-
-
     /**
      * Add seniors
      *
      * @param \SIWOZ\EguardianBundle\Entity\SeniorUser $seniors
      * @return GuardianUser
      */
-    public function addSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $seniors)
-    {
+    public function addSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $seniors) {
         $this->seniors[] = $seniors;
 
         return $this;
@@ -76,8 +72,7 @@ class GuardianUser  extends User{
      *
      * @param \SIWOZ\EguardianBundle\Entity\SeniorUser $seniors
      */
-    public function removeSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $seniors)
-    {
+    public function removeSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $seniors) {
         $this->seniors->removeElement($seniors);
     }
 
@@ -86,26 +81,17 @@ class GuardianUser  extends User{
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getSeniors()
-    {
+    public function getSeniors() {
         return $this->seniors;
     }
+
     /**
      * @var string
      * @Type("string")
-     * @Exclude
      */
     protected $registeredId;
 
-    /**
-     * @ORM\Column(type="string", length=512)
-     * @Type("string")
-     * @Exclude
-     * 
-     */
-
-    public function setRegisteredId($registeredId)
-    {
+    public function setRegisteredId($registeredId) {
         $this->registeredId = $registeredId;
 
         return $this;
@@ -116,8 +102,12 @@ class GuardianUser  extends User{
      *
      * @return string 
      */
-    public function getRegisteredId()
-    {
+    public function getRegisteredId() {
         return $this->registeredId;
     }
+
+    public function getRoles() {
+        return array('ROLE_USER','ROLE_ADMIN');
+    }
+
 }

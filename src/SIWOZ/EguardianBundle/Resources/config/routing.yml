@@ -40,3 +40,11 @@ eguardian_send_notification:
     pattern:  /send
     defaults: { _controller: EguardianBundle:Notification:send }
     methods:  [GET]
+eguardian_login:
+    pattern:  /login
+    defaults: { _controller: EguardianBundle:User:login }
+    methods:  [GET]
+eguardian_login_guardian:
+    pattern:  /login/guardian
+    defaults: { _controller: EguardianBundle:User:loginGuardian }
+    methods:  [GET]

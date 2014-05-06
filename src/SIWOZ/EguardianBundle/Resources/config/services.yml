@@ -5,3 +5,10 @@ services:
 #    eguardian.example:
 #        class: %eguardian.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+#parameters:
+ #   user_provider.class: SIWOZ\EguardianBundle\Repository\UserRepository
+#services:
+ #   user_provider:
+#        class: "%user_provider.class%"
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -12,12 +12,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\MaxDepth;
+
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
  * 
  */
-class SeniorUser  extends User{
-    
+class SeniorUser extends User {
+
     /**
      * @ORM\ManyToMany(targetEntity="GuardianUser", inversedBy="seniors")
      * @ORM\JoinColumn(name="guardian_user_id", referencedColumnName="id")
@@ -26,8 +27,7 @@ class SeniorUser  extends User{
      */
     protected $guardians;
 
-      
-      public function __construct() {
+    public function __construct() {
         $this->guardians = new ArrayCollection();
     }
 
@@ -41,7 +41,7 @@ class SeniorUser  extends User{
      * @var string
      * @Type("string")
      */
-    protected $login;
+    protected $username;
 
     /**
      * @var string
@@ -55,16 +55,13 @@ class SeniorUser  extends User{
      */
     protected $place;
 
-
-
     /**
      * Add guardians
      *
      * @param \SIWOZ\EguardianBundle\Entity\GuardianUser $guardians
      * @return SeniorUser
      */
-    public function addGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardians)
-    {
+    public function addGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardians) {
         $this->guardians[] = $guardians;
 
         return $this;
@@ -75,8 +72,7 @@ class SeniorUser  extends User{
      *
      * @param \SIWOZ\EguardianBundle\Entity\GuardianUser $guardians
      */
-    public function removeGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardians)
-    {
+    public function removeGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardians) {
         $this->guardians->removeElement($guardians);
     }
 
@@ -85,17 +81,15 @@ class SeniorUser  extends User{
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getGuardians()
-    {
+    public function getGuardians() {
         return $this->guardians;
     }
+
     /**
      * @var string
      * @Type("string")
-     * @Exclude
      */
     protected $registeredId;
-
 
     /**
      * Set registeredId
@@ -103,8 +97,7 @@ class SeniorUser  extends User{
      * @param string $registeredId
      * @return SeniorUser
      */
-    public function setRegisteredId($registeredId)
-    {
+    public function setRegisteredId($registeredId) {
         $this->registeredId = $registeredId;
 
         return $this;
@@ -115,8 +108,12 @@ class SeniorUser  extends User{
      *
      * @return string 
      */
-    public function getRegisteredId()
-    {
+    public function getRegisteredId() {
         return $this->registeredId;
     }
+
+    public function getRoles() {
+        return array('ROLE_USER');
+    }
+
 }

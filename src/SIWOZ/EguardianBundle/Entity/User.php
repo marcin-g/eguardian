@@ -14,6 +14,8 @@ use JMS\Serializer\Annotation\Discriminator;
 use JMS\Serializer\Annotation\MaxDepth;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
@@ -24,7 +26,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @Discriminator(field = "discr", map = {"guardian" = "SIWOZ\EguardianBundle\Entity\GuardianUser", "senior" = "SIWOZ\EguardianBundle\Entity\SeniorUser"})
  * @ExclusionPolicy("none")
  */
-class User {
+class User implements UserInterface, \Serializable {
 
     /**
      * @ORM\Column(type="integer")
@@ -38,8 +40,8 @@ class User {
      * @ORM\Column(type="string", length=50)
      * @Type("string")
      */
-    protected $login;
-    
+    protected $username;
+
     /**
      * @ORM\Column(type="string", length=500)
      * @Type("string")
@@ -48,14 +50,13 @@ class User {
      */
     protected $password;
 
-   
     /**
      * @ORM\OneToOne(targetEntity="Place",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
      */
     protected $place;
-    
+
     /**
      * @ORM\Column(type="string", length=512)
      * @Type("string")
@@ -64,14 +65,12 @@ class User {
      */
     protected $registeredId;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -81,9 +80,8 @@ class User {
      * @param string $login
      * @return User
      */
-    public function setLogin($login)
-    {
-        $this->login = $login;
+    public function setUsername($username) {
+        $this->username = $username;
 
         return $this;
     }
@@ -93,9 +91,8 @@ class User {
      *
      * @return string 
      */
-    public function getLogin()
-    {
-        return $this->login;
+    public function getUsername() {
+        return $this->username;
     }
 
     /**
@@ -104,8 +101,7 @@ class User {
      * @param string $password
      * @return User
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
@@ -116,8 +112,7 @@ class User {
      *
      * @return string 
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -127,8 +122,7 @@ class User {
      * @param \SIWOZ\EguardianBundle\Entity\Place $place
      * @return User
      */
-    public function setPlace(\SIWOZ\EguardianBundle\Entity\Place $place = null)
-    {
+    public function setPlace(\SIWOZ\EguardianBundle\Entity\Place $place = null) {
         $this->place = $place;
 
         return $this;
@@ -139,8 +133,7 @@ class User {
      *
      * @return \SIWOZ\EguardianBundle\Entity\Place 
      */
-    public function getPlace()
-    {
+    public function getPlace() {
         return $this->place;
     }
 
@@ -150,8 +143,7 @@ class User {
      * @param string $registeredId
      * @return User
      */
-    public function setRegisteredId($registeredId)
-    {
+    public function setRegisteredId($registeredId) {
         $this->registeredId = $registeredId;
 
         return $this;
@@ -162,8 +154,38 @@ class User {
      *
      * @return string 
      */
-    public function getRegisteredId()
-    {
+    public function getRegisteredId() {
         return $this->registeredId;
     }
+
+    public function getRoles() {
+        return array('NONE');
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt,
+        ));
+    }
+
+    public function unserialize($serialized) {
+        list (
+                $this->id,
+                $this->username,
+                $this->password,
+                $this->salt
+                ) = unserialize($serialized);
+    }
+
 }

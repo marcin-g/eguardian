@@ -86,7 +86,7 @@ class UserController extends Controller {
     }
     
     public function getUserAction($login){
-        $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->findByLogin($login);
+        $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->getUserByUsername($login);
         return new Response($this->serializer->serialize($user, 'json'));
     }
     
@@ -96,6 +96,13 @@ class UserController extends Controller {
         $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($user);
         return new Response($this->serializer->serialize($user, 'json'));
     }
-    
+    public function loginAction(){
+      // $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->getUserByUsername($login);
+        return new Response("OK");
+    }    
+    public function loginGuardianAction(){
+      //  $user= $this->getDoctrine()->getRepository('EguardianBundle:User')->getUserByUsername($login);
+        return new Response("OK");
+    }
 
 }
