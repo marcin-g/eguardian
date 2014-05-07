@@ -21,12 +21,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @author Marcin
  */
 class UserRepository extends EntityRepository implements UserProviderInterface {
-
-   /* function __construct($em, Mapping\ClassMetadata $class)
-    {
-        parent::__construct($em, $class);
-        $this->CI =& get_instance(); // looks strange
-    }  */
+    /* function __construct($em, Mapping\ClassMetadata $class)
+      {
+      parent::__construct($em, $class);
+      $this->CI =& get_instance(); // looks strange
+      } */
 
     public function loadUserByUsername($username) {
         // make a call to your webservice here
@@ -73,6 +72,12 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
     public function updateUser($user) {
         $em = $this->getEntityManager();
         $em->merge($user);
+        $em->flush();
+    }
+
+    public function updateRegisteredId($user, $id){
+        $em = $this->getEntityManager();
+        $user->setRegisteredId($id);
         $em->flush();
     }
 

@@ -41,7 +41,7 @@ security:
             security: false
 
         secured_area:
-            pattern:    ^/place|login
+            pattern:    ^/place|login|user/registeredId
             http_basic: ~
             stateless:  true
             #anonymous: ~
@@ -52,5 +52,6 @@ security:
         - { path: ^/place, roles: ROLE_USER }
         - { path: ^/login$, roles: ROLE_USER }
         - { path: ^/login/guardian, roles: ROLE_ADMIN}
+        - { path: ^/user/registeredId, roles: ROLE_USER, methods: [POST]}
        # - { path: ^/user, roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
