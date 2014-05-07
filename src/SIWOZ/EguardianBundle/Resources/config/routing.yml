@@ -48,7 +48,31 @@ eguardian_login:
     pattern:  /login
     defaults: { _controller: EguardianBundle:User:login }
     methods:  [GET]
-eguardian_login_guardian:
-    pattern:  /login/guardian
-    defaults: { _controller: EguardianBundle:User:loginGuardian }
-    methods:  [GET]
+eguardian_event_meal_put:
+    pattern:  /event/meal
+    defaults: { _controller: EguardianBundle:Event:putMealEvent }
+    methods:  [PUT]
+eguardian_event_visit_put:
+    pattern:  /event/visit
+    defaults: { _controller: EguardianBundle:Event:putVisitEvent }
+    methods:  [PUT]
+eguardian_event_test_put:
+    pattern:  /event/test
+    defaults: { _controller: EguardianBundle:Event:putTestEvent }
+    methods:  [PUT]
+eguardian_event_medicine_put:
+    pattern:  /event/medicine
+    defaults: { _controller: EguardianBundle:Event:putMedicineEvent }
+    methods:  [PUT]
+eguardian_event_get:
+    pattern:  /event/(meal|visit|medicine|test)/{id}
+    defaults: { _controller: EguardianBundle:Event:getEvent }
+    methods:  [GET]    
+eguardian_event_delete:
+    pattern:  /event/(meal|visit|medicine|test)
+    defaults: { _controller: EguardianBundle:Event:deleteEvent }
+    methods:  [DELETE]
+eguardian_event_post:
+    pattern:  /event/(meal|visit|medicine|test)
+    defaults: { _controller: EguardianBundle:Event:updateEvent }
+    methods:  [POST]
