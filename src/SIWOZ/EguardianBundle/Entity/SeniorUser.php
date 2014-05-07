@@ -15,6 +15,7 @@ use JMS\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
+ * @ORM\Table(name="senior_user")
  * 
  */
 class SeniorUser extends User {

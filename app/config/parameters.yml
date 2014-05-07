@@ -1,11 +1,11 @@
 # This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
-    database_host: localhost
+    database_host: 69.vot.pl
     database_port: 3306
-    database_name: eguardian
-    database_user: eguardianUser
-    database_password: 123
+    database_name: m69_db
+    database_user: m69_root
+    database_password: martinezz
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
