@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use JMS\Serializer;
 
 /**
  * Description of EventController
@@ -17,6 +18,13 @@ use Symfony\Component\HttpFoundation\Response;
  * @author Marcin
  */
 class EventController extends Controller {
+
+    private $serializer;
+
+    function __construct() {
+        $this->serializer = Serializer\SerializerBuilder::create()->build();
+        // $this->serializer =  $this->getConfigurationPool()->getContainer()->get('jms_serializer');
+    }
 
     public function putMealEventAction() {
         $json = $this->getRequest()->getContent();
@@ -47,7 +55,6 @@ class EventController extends Controller {
     }
 
     public function getEventAction($id) {
-        $json = $this->getRequest()->getContent();
         $event = $this->getDoctrine()->getRepository('EguardianBundle:Event')->getEvent($id);
         return new Response($this->serializer->serialize($event, 'json'));
     }
@@ -64,6 +71,12 @@ class EventController extends Controller {
         $event = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\Event', 'json');
         $this->getDoctrine()->getRepository('EguardianBundle:Event')->deleteEvent($event);
         return new Response("OK");
+    }
+
+    public function getEventsAction($className) {
+        $user = $this->get("security.context")->getToken()->getUser();
+        $events = $this->getDoctrine()->getRepository('EguardianBundle:Event')->getEvents($user,$className);
+        return new Response($this->serializer->serialize($events, 'json'));
     }
 
 }

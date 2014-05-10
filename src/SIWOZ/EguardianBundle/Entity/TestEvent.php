@@ -38,13 +38,13 @@ class TestEvent extends Event {
 
     /**
      * @var \DateTime
-     * @Type("date")
+     * @Type("DateTime")
      */
     protected $startDate;
 
     /**
      * @var \DateTime
-     * @Type("date")
+     * @Type("DateTime")
      */
     protected $interval;
 

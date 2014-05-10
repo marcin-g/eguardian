@@ -1,6 +1,7 @@
 <?php
 
 namespace SIWOZ\EguardianBundle\Entity;
+
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Discriminator;
 
@@ -9,7 +10,6 @@ use JMS\Serializer\Annotation\Discriminator;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * Description of Event
  *
@@ -23,9 +23,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="smallint")
  * @ORM\DiscriminatorMap({"0" = "MealEvent", "1" = "VisitEvent","2" = "MedicineEvent","3" = "TestEvent"})
+ * @Discriminator(field = "discr", map = {"0" = "SIWOZ\EguardianBundle\Entity\MealEvent", "1" = "SIWOZ\EguardianBundle\Entity\VisitEvent","2" = "SIWOZ\EguardianBundle\Entity\MedicineEvent","3" = "SIWOZ\EguardianBundle\Entity\TestEvent"})
  */
 class Event {
-    
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -33,7 +34,7 @@ class Event {
      * @Type("integer")
      */
     protected $id;
-    
+
     /**
      * 
      * @ORM\ManyToOne(targetEntity="SeniorUser")
@@ -41,8 +42,7 @@ class Event {
      * @Type("SIWOZ\EguardianBundle\Entity\SeniorUser")
      */
     protected $senior;
-    
-    
+
     /**
      * 
      * @ORM\ManyToOne(targetEntity="GuardianUser")
@@ -50,28 +50,25 @@ class Event {
      * @Type("SIWOZ\EguardianBundle\Entity\GuardianUser")
      */
     protected $guardian;
-    
-    
+
     /**
      * @ORM\Column(name="start_date", type="date")
-     * @Type("date")
+     * @Type("DateTime")
      */
     protected $startDate;
-    
+
     /**
      * @ORM\Column(name="interval", type="date")
-     * @Type("date")
+     * @Type("DateTime")
      */
-    protected $interval;    
-    
+    protected $interval;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -81,8 +78,7 @@ class Event {
      * @param \DateTime $startDate
      * @return Event
      */
-    public function setStartDate($startDate)
-    {
+    public function setStartDate($startDate) {
         $this->startDate = $startDate;
 
         return $this;
@@ -93,8 +89,7 @@ class Event {
      *
      * @return \DateTime 
      */
-    public function getStartDate()
-    {
+    public function getStartDate() {
         return $this->startDate;
     }
 
@@ -104,8 +99,7 @@ class Event {
      * @param \DateTime $interval
      * @return Event
      */
-    public function setInterval($interval)
-    {
+    public function setInterval($interval) {
         $this->interval = $interval;
 
         return $this;
@@ -116,8 +110,7 @@ class Event {
      *
      * @return \DateTime 
      */
-    public function getInterval()
-    {
+    public function getInterval() {
         return $this->interval;
     }
 
@@ -127,8 +120,7 @@ class Event {
      * @param \SIWOZ\EguardianBundle\Entity\SeniorUser $senior
      * @return Event
      */
-    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior = null)
-    {
+    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior = null) {
         $this->senior = $senior;
 
         return $this;
@@ -139,8 +131,7 @@ class Event {
      *
      * @return \SIWOZ\EguardianBundle\Entity\SeniorUser 
      */
-    public function getSenior()
-    {
+    public function getSenior() {
         return $this->senior;
     }
 
@@ -150,8 +141,7 @@ class Event {
      * @param \SIWOZ\EguardianBundle\Entity\GuardianUser $guardian
      * @return Event
      */
-    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian = null)
-    {
+    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian = null) {
         $this->guardian = $guardian;
 
         return $this;
@@ -162,8 +152,8 @@ class Event {
      *
      * @return \SIWOZ\EguardianBundle\Entity\GuardianUser 
      */
-    public function getGuardian()
-    {
+    public function getGuardian() {
         return $this->guardian;
     }
+
 }
