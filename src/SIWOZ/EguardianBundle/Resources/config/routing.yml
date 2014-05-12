@@ -48,6 +48,10 @@ eguardian_login:
     pattern:  /login
     defaults: { _controller: EguardianBundle:User:login }
     methods:  [GET]
+eguardian_login_guardian:
+    pattern:  /login/guardian
+    defaults: { _controller: EguardianBundle:User:login }
+    methods:  [GET]
 eguardian_event_meal_put:
     pattern:  /event/meal
     defaults: { _controller: EguardianBundle:Event:putMealEvent }
