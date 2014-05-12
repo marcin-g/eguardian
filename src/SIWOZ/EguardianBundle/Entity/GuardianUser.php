@@ -23,7 +23,7 @@ class GuardianUser extends User {
      * @ORM\ManyToMany(targetEntity="SeniorUser", inversedBy="guardians")
      * @ORM\JoinColumn(name="senior_user_id", referencedColumnName="id")
      * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\SeniorUser>")
-     * @MaxDepth(1)
+     * @MaxDepth(0)
      */
     protected $seniors;
 
