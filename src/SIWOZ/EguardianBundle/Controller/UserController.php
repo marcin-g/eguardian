@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\Serializer\Serializer;
 //use JMS\SerializerBundle\Serializer;
 use JMS\Serializer;
+use JMS\Serializer\SerializationContext;
 
 /**
  * Description of UserController
