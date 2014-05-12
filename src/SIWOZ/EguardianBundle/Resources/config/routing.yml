@@ -75,15 +75,15 @@ eguardian_event_meals_get:
     defaults: { _controller: EguardianBundle:Event:getEvents, className: 'SIWOZ\EguardianBundle\Entity\MealEvent' }
     methods:  [GET]    
 eguardian_event_tests_get:
-    pattern:  /event/meal
+    pattern:  /event/test
     defaults: { _controller: EguardianBundle:Event:getEvents, className: 'SIWOZ\EguardianBundle\Entity\TestEvent' }
     methods:  [GET]    
 eguardian_event_visits_get:
-    pattern:  /event/meal
+    pattern:  /event/visit
     defaults: { _controller: EguardianBundle:Event:getEvents, className: 'SIWOZ\EguardianBundle\Entity\VisitEvent' }
     methods:  [GET]    
 eguardian_event_medicines_get:
-    pattern:  /event/meal
+    pattern:  /event/medicine
     defaults: { _controller: EguardianBundle:Event:getEvents, className: 'SIWOZ\EguardianBundle\Entity\MedicineEvent' }
     methods:  [GET]    
 eguardian_event_delete:
