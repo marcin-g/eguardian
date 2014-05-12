@@ -25,7 +25,7 @@ class SeniorUser extends User {
      * @ORM\ManyToMany(targetEntity="GuardianUser", inversedBy="seniors")
      * @ORM\JoinColumn(name="guardian_user_id", referencedColumnName="id")
      * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\GuardianUser>")
-     * @MaxDepth(1)
+     * @MaxDepth(2)
      * @Groups({"All"})
      */
     protected $guardians;
