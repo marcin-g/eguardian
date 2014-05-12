@@ -12,10 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Discriminator;
 use JMS\Serializer\Annotation\MaxDepth;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
@@ -24,7 +23,6 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"guardian" = "GuardianUser", "senior" = "SeniorUser"})
  * @Discriminator(field = "discr", map = {"guardian" = "SIWOZ\EguardianBundle\Entity\GuardianUser", "senior" = "SIWOZ\EguardianBundle\Entity\SeniorUser"})
- * @ExclusionPolicy("none")
  */
 class User implements UserInterface, \Serializable {
 
@@ -33,20 +31,21 @@ class User implements UserInterface, \Serializable {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=50)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $username;
 
     /**
      * @ORM\Column(type="string", length=500)
      * @Type("string")
-     * @Exclude
-     * 
+     * @Groups({"None"})
      */
     protected $password;
 
@@ -54,13 +53,14 @@ class User implements UserInterface, \Serializable {
      * @ORM\OneToOne(targetEntity="Place",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
+     * @Groups({"All"})
      */
     protected $place;
 
     /**
      * @ORM\Column(type="string", length=512)
      * @Type("string")
-     * @Exclude
+     * @Groups({"None"})
      * 
      */
     protected $registeredId;

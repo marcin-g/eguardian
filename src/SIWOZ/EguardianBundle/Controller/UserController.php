@@ -63,39 +63,39 @@ class UserController extends Controller {
         $seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\SeniorUser', 'json');
         $em->persist($seniorUser);
         $em->flush();
-        return new Response($this->serializer->serialize($seniorUser, 'json'));
+        return new Response($this->serializer->serialize($seniorUser, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function putGuardianUserAction() {
         $json = $this->getRequest()->getContent();
         $guardianUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
         $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($guardianUser);
-        return new Response($this->serializer->serialize($guardianUser, 'json'));
+        return new Response($this->serializer->serialize($guardianUser, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function addGuardianToSeniorAction($guardianLogin, $seniorLogin) {
         //$json = $this->getRequest()->getContent();
         //$seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
         $guardianUser = $this->getDoctrine()->getRepository('EguardianBundle:User')->addGuardianToSenior($guardianLogin, $seniorLogin);
-        return new Response($this->serializer->serialize($guardianUser, 'json'));
+        return new Response($this->serializer->serialize($guardianUser, 'json'), SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All')));
     }
 
     public function removeGuardianToSeniorAction($guardianLogin, $seniorLogin) {
         //$seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
         $guardianUser = $this->getDoctrine()->getRepository('EguardianBundle:User')->removeGuardianToSenior($guardianLogin, $seniorLogin);
-        return new Response($this->serializer->serialize($guardianUser, 'json'));
+        return new Response($this->serializer->serialize($guardianUser, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
     public function getUserAction($login) {
         $user = $this->getDoctrine()->getRepository('EguardianBundle:User')->getUserByUsername($login);
-        return new Response($this->serializer->serialize($user, 'json'));
+        return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
     public function updateUserAction() {
         $json = $this->getRequest()->getContent();
         $user = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\User', 'json');
         $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($user);
-        return new Response($this->serializer->serialize($user, 'json'));
+        return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
     public function updateRegisteredIdAction() {
@@ -104,15 +104,15 @@ class UserController extends Controller {
         $obj = json_decode($json);
         $id=$obj->{'RegisteredId'};
         $this->getDoctrine()->getRepository('EguardianBundle:User')->updateRegisteredId($user,$id);
-        return new Response($this->serializer->serialize($user, 'json'));
+        return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
     public function loginAction() {
-        return new Response($this->serializer->serialize($this->get("security.context")->getToken()->getUser(), 'json'));
+        return new Response($this->serializer->serialize($this->get("security.context")->getToken()->getUser(), 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
     public function loginGuardianAction() {
-        return new Response($this->serializer->serialize($this->get("security.context")->getToken()->getUser(), 'json'));
+        return new Response($this->serializer->serialize($this->get("security.context")->getToken()->getUser(), 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
 }

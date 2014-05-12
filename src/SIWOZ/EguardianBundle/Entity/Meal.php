@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\MealRepository")
@@ -22,18 +23,21 @@ class Meal {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string", length=500)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $description;
 

@@ -17,6 +17,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 class Notification {
 
@@ -24,15 +25,18 @@ class Notification {
 
     /**
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $name;
     /**
      * @Type("ArrayCollection<string>")
+     * @Groups({"Default", "All"})
      */
     protected $registration_ids;
 
     /**
      * @Type("SIWOZ\EguardianBundle\Entity\Data")
+     * @Groups({"Default", "All"})
      */
     protected $data;
     

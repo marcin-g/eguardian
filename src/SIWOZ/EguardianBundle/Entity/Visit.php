@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\VisitRepository")
@@ -22,12 +23,14 @@ class Visit {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $name;
     
@@ -36,6 +39,7 @@ class Visit {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $doctorName;
 
@@ -44,6 +48,7 @@ class Visit {
      * @ORM\OneToOne(targetEntity="Place")
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
+     * @Groups({"Default", "All"})
      */
     protected $place;
 

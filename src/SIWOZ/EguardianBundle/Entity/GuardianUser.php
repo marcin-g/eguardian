@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\MaxDepth;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
@@ -23,7 +24,8 @@ class GuardianUser extends User {
      * @ORM\ManyToMany(targetEntity="SeniorUser", inversedBy="guardians")
      * @ORM\JoinColumn(name="senior_user_id", referencedColumnName="id")
      * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\SeniorUser>")
-     * @MaxDepth(0)
+     * @MaxDepth(1)
+     * @Groups({"All"})
      */
     protected $seniors;
 
@@ -34,24 +36,28 @@ class GuardianUser extends User {
     /**
      * @var integer
      * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @var string
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $username;
 
     /**
      * @var string
      * @Type("string")
+     * @Groups({"None"})
      */
     protected $password;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\Place
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
+     * @Groups({"All"})
      */
     protected $place;
 
@@ -88,6 +94,7 @@ class GuardianUser extends User {
     /**
      * @var string
      * @Type("string")
+     * @Groups({"None"})
      */
     protected $registeredId;
 

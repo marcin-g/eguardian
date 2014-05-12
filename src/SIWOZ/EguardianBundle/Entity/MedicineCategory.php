@@ -11,6 +11,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -23,6 +24,7 @@ class MedicineCategory {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"All"})
      * 
      */
     protected $id;
@@ -30,12 +32,14 @@ class MedicineCategory {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $name;
 
     /**
      * @ORM\OneToMany(targetEntity="Medicine", mappedBy="medicineCategory")
      * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\Medicine>")
+     * @Groups({"All"})
      */
     protected $medicines;
 

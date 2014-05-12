@@ -31,40 +31,40 @@ class EventController extends Controller {
         $json = $this->getRequest()->getContent();
         $mealEvent = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\MealEvent', 'json');
         $this->getDoctrine()->getRepository('EguardianBundle:Event')->addEvent($mealEvent);
-        return new Response($this->serializer->serialize($mealEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+        return new Response($this->serializer->serialize($mealEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function putTestEventAction() {
         $json = $this->getRequest()->getContent();
         $testEvent = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\TestEvent', 'json');
         $this->getDoctrine()->getRepository('EguardianBundle:Event')->addEvent($testEvent);
-        return new Response($this->serializer->serialize($testEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+        return new Response($this->serializer->serialize($testEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function putMedicineEventAction() {
         $json = $this->getRequest()->getContent();
         $medicineEvent = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\MedicineEvent', 'json');
         $this->getDoctrine()->getRepository('EguardianBundle:Event')->addEvent($medicineEvent);
-        return new Response($this->serializer->serialize($medicineEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+        return new Response($this->serializer->serialize($medicineEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function putVisitEventAction() {
         $json = $this->getRequest()->getContent();
         $visitEvent = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\VisitEvent', 'json');
         $this->getDoctrine()->getRepository('EguardianBundle:Event')->addEvent($visitEvent);
-        return new Response($this->serializer->serialize($visitEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+        return new Response($this->serializer->serialize($visitEvent, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function getEventAction($id) {
         $event = $this->getDoctrine()->getRepository('EguardianBundle:Event')->getEvent($id);
-        return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+        return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function updateEventAction() {
         $json = $this->getRequest()->getContent();
         $event = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\Event', 'json');
         $event = $this->getDoctrine()->getRepository('EguardianBundle:Event')->updateEvent($event);
-        return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+        return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
     public function deleteEventAction() {
@@ -77,7 +77,7 @@ class EventController extends Controller {
     public function getEventsAction($className) {
         $user = $this->get("security.context")->getToken()->getUser();
         $events = $this->getDoctrine()->getRepository('EguardianBundle:Event')->getEvents($user,$className);
-        return new Response($this->serializer->serialize($events, 'json', SerializationContext::create()->enableMaxDepthChecks()));
+        return new Response($this->serializer->serialize($events, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
 }

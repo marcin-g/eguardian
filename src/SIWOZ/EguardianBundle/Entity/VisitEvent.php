@@ -15,6 +15,7 @@ namespace SIWOZ\EguardianBundle\Entity;
  */
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\EventRepository")
@@ -27,36 +28,42 @@ class VisitEvent extends Event {
      * @ORM\ManyToOne(targetEntity="Visit",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="visit_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Visit")
+     * @Groups({"Default", "All"})
      */
     protected $visit;
 
     /**
      * @var integer
      * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @var \DateTime
      * @Type("DateTime")
+     * @Groups({"Default", "All"})
      */
     protected $startDate;
 
     /**
      * @var \DateTime
      * @Type("DateTime")
+     * @Groups({"Default", "All"})
      */
     protected $interval;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\SeniorUser
      * @Type("SIWOZ\EguardianBundle\Entity\SeniorUser")
+     * @Groups({"Default", "All"})
      */
     protected $senior;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\GuardianUser
      * @Type("SIWOZ\EguardianBundle\Entity\GuardianUser")
+     * @Groups({"Default", "All"})
      */
     protected $guardian;
 

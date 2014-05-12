@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\MedicineRepository")
@@ -22,18 +23,21 @@ class Medicine {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("int")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $dose;
 
@@ -41,6 +45,7 @@ class Medicine {
      * @ORM\ManyToOne(targetEntity="MedicineCategory", inversedBy="medicines")
      * @ORM\JoinColumn(name="medicine_category_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\MedicineCategory")
+     * @Groups({"Default", "All"})
      */
     protected $medicineCategory;
 

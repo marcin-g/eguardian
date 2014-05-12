@@ -4,6 +4,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Discriminator;
+use JMS\Serializer\Annotation\Groups;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,6 +33,7 @@ class Event {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"All"})
      */
     protected $id;
 
@@ -40,6 +42,7 @@ class Event {
      * @ORM\ManyToOne(targetEntity="SeniorUser")
      * @ORM\JoinColumn(name="senior_user_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\SeniorUser")
+     * @Groups({"Default", "All"})
      */
     protected $senior;
 
@@ -48,18 +51,21 @@ class Event {
      * @ORM\ManyToOne(targetEntity="GuardianUser")
      * @ORM\JoinColumn(name="guardian_user_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\GuardianUser")
+     * @Groups({"Default", "All"})
      */
     protected $guardian;
 
     /**
      * @ORM\Column(name="start_date", type="date")
      * @Type("DateTime")
+     * @Groups({"Default", "All"})
      */
     protected $startDate;
 
     /**
      * @ORM\Column(name="interval", type="date")
      * @Type("DateTime")
+     * @Groups({"Default", "All"})
      */
     protected $interval;
 
