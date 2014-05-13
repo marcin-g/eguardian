@@ -96,23 +96,27 @@ class GuardianUser extends User {
      * @Type("string")
      * @Groups({"None"})
      */
-    protected $registeredId;
+    protected $registrationId;
 
-    public function setRegisteredId($registeredId) {
-        $this->registeredId = $registeredId;
+/**
+     * Set registeredId
+     *
+     * @param string registrationId
+     */
+    public function setRegistrationId($registrationId) {
+        $this->registrationId = $registrationId;
 
         return $this;
     }
 
     /**
-     * Get registeredId
+     * Get registrationId
      *
      * @return string 
      */
-    public function getRegisteredId() {
-        return $this->registeredId;
+    public function getRegistrationId() {
+        return $this->registrationId;
     }
-
     public function getRoles() {
         return array('ROLE_USER','ROLE_ADMIN');
     }

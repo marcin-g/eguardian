@@ -45,11 +45,14 @@ security:
             pattern:    ^/
             http_basic: ~
             stateless:  true
+            anonymous: ~
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"
 
     access_control:
+        - { path: ^/user/senior$, role: IS_AUTHENTICATED_ANONYMOUSLY, methods: [PUT] }
+        - { path: ^/user/guardian$, role: IS_AUTHENTICATED_ANONYMOUSLY, methods: [PUT] }
         - { path: ^/place, roles: ROLE_USER }
         - { path: ^/login$, roles: ROLE_USER }
         - { path: ^/login/guardian, roles: ROLE_ADMIN}

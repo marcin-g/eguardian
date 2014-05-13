@@ -14,7 +14,7 @@ use JMS\Serializer\Annotation\Discriminator;
  *
  * @author Marcin
  */
-class GuardianNotification extends Entity {
+class GuardianNotification  {
     protected $id;
     protected $event;
     protected $sendDate;

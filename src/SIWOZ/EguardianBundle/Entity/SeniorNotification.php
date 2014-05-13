@@ -17,11 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Groups;
 
-/*
- * @ORM\Entity
- * @ORM\Table(name="entity")
- */
-class Notification {
+class SeniorNotification {
 
     protected $id;
 
@@ -29,7 +25,7 @@ class Notification {
      * @Type("string")
      * @Groups({"Default", "All"})
      */
-    protected $registration_id;
+    protected $registrationId;
 
     /**
      * @Type("SIWOZ\EguardianBundle\Entity\Event")
