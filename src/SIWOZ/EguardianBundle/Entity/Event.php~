@@ -1,15 +1,16 @@
 <?php
 
 namespace SIWOZ\EguardianBundle\Entity;
+
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Discriminator;
+use JMS\Serializer\Annotation\Groups;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * Description of Event
  *
@@ -23,55 +24,63 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="smallint")
  * @ORM\DiscriminatorMap({"0" = "MealEvent", "1" = "VisitEvent","2" = "MedicineEvent","3" = "TestEvent"})
+ * @Discriminator(field = "discr", map = {"0" = "SIWOZ\EguardianBundle\Entity\MealEvent", "1" = "SIWOZ\EguardianBundle\Entity\VisitEvent","2" = "SIWOZ\EguardianBundle\Entity\MedicineEvent","3" = "SIWOZ\EguardianBundle\Entity\TestEvent"})
  */
 class Event {
-    
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"All"})
      */
     protected $id;
-    
+
     /**
      * 
      * @ORM\ManyToOne(targetEntity="SeniorUser")
      * @ORM\JoinColumn(name="senior_user_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\SeniorUser")
+     * @Groups({"Default", "All"})
      */
     protected $senior;
-    
-    
+
     /**
      * 
      * @ORM\ManyToOne(targetEntity="GuardianUser")
      * @ORM\JoinColumn(name="guardian_user_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\GuardianUser")
+     * @Groups({"Default", "All"})
      */
     protected $guardian;
-    
-    
+
     /**
      * @ORM\Column(name="start_date", type="date")
-     * @Type("date")
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
      */
     protected $startDate;
-    
-    /**
-     * @ORM\Column(name="interval", type="date")
-     * @Type("date")
+      /**
+     * @ORM\Column(name="end_date", type="date")
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
      */
-    protected $interval;    
-    
+    protected $endDate;
+
+    /**
+     * @ORM\Column(name="interval", type="int")
+     * @Type("integer")
+     * @Groups({"Default", "All"})
+     */
+    protected $interval;
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -81,8 +90,7 @@ class Event {
      * @param \DateTime $startDate
      * @return Event
      */
-    public function setStartDate($startDate)
-    {
+    public function setStartDate($startDate) {
         $this->startDate = $startDate;
 
         return $this;
@@ -93,8 +101,7 @@ class Event {
      *
      * @return \DateTime 
      */
-    public function getStartDate()
-    {
+    public function getStartDate() {
         return $this->startDate;
     }
 
@@ -104,8 +111,7 @@ class Event {
      * @param \DateTime $interval
      * @return Event
      */
-    public function setInterval($interval)
-    {
+    public function setInterval($interval) {
         $this->interval = $interval;
 
         return $this;
@@ -116,8 +122,7 @@ class Event {
      *
      * @return \DateTime 
      */
-    public function getInterval()
-    {
+    public function getInterval() {
         return $this->interval;
     }
 
@@ -127,8 +132,7 @@ class Event {
      * @param \SIWOZ\EguardianBundle\Entity\SeniorUser $senior
      * @return Event
      */
-    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior = null)
-    {
+    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior = null) {
         $this->senior = $senior;
 
         return $this;
@@ -139,8 +143,7 @@ class Event {
      *
      * @return \SIWOZ\EguardianBundle\Entity\SeniorUser 
      */
-    public function getSenior()
-    {
+    public function getSenior() {
         return $this->senior;
     }
 
@@ -150,8 +153,7 @@ class Event {
      * @param \SIWOZ\EguardianBundle\Entity\GuardianUser $guardian
      * @return Event
      */
-    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian = null)
-    {
+    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian = null) {
         $this->guardian = $guardian;
 
         return $this;
@@ -162,8 +164,31 @@ class Event {
      *
      * @return \SIWOZ\EguardianBundle\Entity\GuardianUser 
      */
-    public function getGuardian()
-    {
+    public function getGuardian() {
         return $this->guardian;
+    }
+
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     * @return Event
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }

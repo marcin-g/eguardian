@@ -48,8 +48,8 @@ class MealEvent extends Event {
     protected $startDate;
 
     /**
-     * @var \DateTime
-     * @Type("DateTime")
+     * @var \integer
+     * @Type("integer")
      * @Groups({"Default", "All"})
      */
     protected $interval;
@@ -105,7 +105,7 @@ class MealEvent extends Event {
     /**
      * Set interval
      *
-     * @param \DateTime $interval
+     * @param integer $interval
      * @return MealEvent
      */
     public function setInterval($interval)
@@ -118,7 +118,7 @@ class MealEvent extends Event {
     /**
      * Get interval
      *
-     * @return \DateTime 
+     * @return integer
      */
     public function getInterval()
     {
@@ -154,7 +154,7 @@ class MealEvent extends Event {
      * @param \SIWOZ\EguardianBundle\Entity\SeniorUser $senior
      * @return MealEvent
      */
-    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior = null)
+    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior)
     {
         $this->senior = $senior;
 
@@ -177,7 +177,7 @@ class MealEvent extends Event {
      * @param \SIWOZ\EguardianBundle\Entity\GuardianUser $guardian
      * @return MealEvent
      */
-    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian = null)
+    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian)
     {
         $this->guardian = $guardian;
 
@@ -192,5 +192,35 @@ class MealEvent extends Event {
     public function getGuardian()
     {
         return $this->guardian;
+    }
+    /**
+     * @var \DateTime
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
+     */
+    protected $endDate;
+
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     * @return MealEvent
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }

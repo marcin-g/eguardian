@@ -19,15 +19,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Groups;
 
-class Notification {
+class SeniorNotificationAdapter {
 
-    protected $id;
-
-    /**
-     * @Type("string")
-     * @Groups({"Default", "All"})
-     */
-    protected $name;
     /**
      * @Type("ArrayCollection<string>")
      * @Groups({"Default", "All"})
@@ -35,7 +28,7 @@ class Notification {
     protected $registration_ids;
 
     /**
-     * @Type("SIWOZ\EguardianBundle\Entity\Data")
+     * @Type("SIWOZ\EguardianBundle\Entity\EventData")
      * @Groups({"Default", "All"})
      */
     protected $data;
@@ -67,6 +60,9 @@ class Notification {
 
     public function setRegistration_ids($registration_ids) {
         $this->registration_ids = $registration_ids;
+    }
+    public function addRegistration_ids($registration_ids) {
+        $this->registration_ids->add($registration_ids);
     }
 
 }

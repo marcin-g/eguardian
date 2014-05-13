@@ -47,8 +47,8 @@ class TestEvent extends Event {
     protected $startDate;
 
     /**
-     * @var \DateTime
-     * @Type("DateTime")
+     * @var integer
+     * @Type("integer")
      * @Groups({"Default", "All"})
      */
     protected $interval;
@@ -104,7 +104,7 @@ class TestEvent extends Event {
     /**
      * Set interval
      *
-     * @param \DateTime $interval
+     * @param integer $interval
      * @return TestEvent
      */
     public function setInterval($interval)
@@ -117,7 +117,7 @@ class TestEvent extends Event {
     /**
      * Get interval
      *
-     * @return \DateTime 
+     * @return integer
      */
     public function getInterval()
     {
@@ -191,5 +191,34 @@ class TestEvent extends Event {
     public function getGuardian()
     {
         return $this->guardian;
+    }
+    /**
+     * @var \DateTime
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
+     */
+    protected $endDate;
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     * @return TestEvent
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }

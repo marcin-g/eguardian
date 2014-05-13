@@ -17,6 +17,7 @@ use Curl\Curl;
 use Buzz\Message\Request as BuzzRequest;
 use Buzz\Message\Response as BuzzResponse;
 use Buzz\Client\FileGetContents;
+use SIWOZ\EguardianBundle\Utils\NotificationHelper;
 
 /**
  * Description of EventController
@@ -26,14 +27,16 @@ use Buzz\Client\FileGetContents;
 class NotificationController extends Controller {
 
     private $serializer;
+    private $helper;
 
     function __construct() {
         $this->serializer = Serializer\SerializerBuilder::create()->build();
+        $this->helper = new NotificationHelper();
         // $this->serializer =  $this->getConfigurationPool()->getContainer()->get('jms_serializer');
     }
 
     public function sendAction() {
-        $data = new \SIWOZ\EguardianBundle\Entity\Data();
+        $data = new \SIWOZ\EguardianBundle\Entity\EventData();
         $place = new \SIWOZ\EguardianBundle\Entity\Place();
         $place->setApartmentNo("1");
         $place->setCity("Zaniemyl");
@@ -41,12 +44,8 @@ class NotificationController extends Controller {
         $place->setStreet("Libelrer");
         $place->setStreetNo("2");
         $place->setTelephoneNumber("64545666");
-        $data->setPlace($place);
-        /*$data->setKey("klucz2");
-        $data->setValue("pszemek");
-        $arrayData = new ArrayCollection();
-        $arrayData->add($data);*/
-        $notification = new \SIWOZ\EguardianBundle\Entity\Notification();
+        $data->setEvent($place);
+        $notification = new \SIWOZ\EguardianBundle\Entity\SeniorNotificationAdapter();
         $notification->setData($data);
         $registration_ids = new ArrayCollection();
         $registration_ids->add("APA91bGGTv7U4_gtXVp_cLl02_8OrAeSNt3QlcGJIpux5zC_CbRrW8AdgUEyOt4YLoL3qD6toNGsT945nzph2KX_8XGckhYx6lIsvhuS2pUbbTtzBfRrbJJ3TlbulzS86mV8MfKtUP9i3pOh7senelUq1IJHrjSooCnc2sO08rD6bgdjvHtGNI4");
@@ -61,15 +60,39 @@ class NotificationController extends Controller {
         $request->addHeaders(array('Content-length: ' . strlen((string) $jsonContent)));
         $request->setContent($jsonContent);
         $client = new FileGetContents();
+        $client->send($request, $response);
 
-        
-        
+/*
+        if ($response->isOk()) {
+            $json_decoded = json_decode($response->getContent());
+            if ($json_decoded->success == 1) {
 
-         $client->send($request, $response);
-
-
+                return new Response("elo");
+            }
+        }*/
         //return new Response($jsonContent);
         return new Response($response);
+    }
+
+    public function sendSeniorNotificationAction() {
+
+        $notifications = $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->getNotificationToSend();
+        $client = new FileGetContents();
+        foreach ($notifications as $notification) {
+            $request = $this->helper->createEventNotificationRequest($notification);
+            $response = new BuzzResponse();
+            $client->send($request, $response);
+            if ($response->isOk()) {
+                $json_decoded = json_decode($response->getContent());
+                if ($json_decoded->success == 1) {
+                    $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateSuccesNotification($notification);
+                } else {
+                    $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notification);
+                }
+            }
+            $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notification);
+        }
+        return new Response("OK");
     }
 
 }

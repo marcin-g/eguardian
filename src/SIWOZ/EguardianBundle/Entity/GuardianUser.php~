@@ -12,10 +12,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\MaxDepth;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\UserRepository")
- * 
+ * @ORM\Table(name="guardian_user")
  */
 class GuardianUser extends User {
 
@@ -23,7 +24,8 @@ class GuardianUser extends User {
      * @ORM\ManyToMany(targetEntity="SeniorUser", inversedBy="guardians")
      * @ORM\JoinColumn(name="senior_user_id", referencedColumnName="id")
      * @Type("ArrayCollection<SIWOZ\EguardianBundle\Entity\SeniorUser>")
-     * @MaxDepth(1)
+     * @MaxDepth(2)
+     * @Groups({"All"})
      */
     protected $seniors;
 
@@ -34,24 +36,28 @@ class GuardianUser extends User {
     /**
      * @var integer
      * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @var string
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $username;
 
     /**
      * @var string
      * @Type("string")
+     * @Groups({"None"})
      */
     protected $password;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\Place
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
+     * @Groups({"All"})
      */
     protected $place;
 
@@ -88,26 +94,31 @@ class GuardianUser extends User {
     /**
      * @var string
      * @Type("string")
+     * @Groups({"None"})
      */
-    protected $registeredId;
+    protected $registrationId;
 
-    public function setRegisteredId($registeredId) {
-        $this->registeredId = $registeredId;
+/**
+     * Set registeredId
+     *
+     * @param string registrationId
+     */
+    public function setRegistrationId($registrationId) {
+        $this->registrationId = $registrationId;
 
         return $this;
     }
 
     /**
-     * Get registeredId
+     * Get registrationId
      *
      * @return string 
      */
-    public function getRegisteredId() {
-        return $this->registeredId;
+    public function getRegistrationId() {
+        return $this->registrationId;
     }
-
     public function getRoles() {
-        return array('GUARDIAN');
+        return array('ROLE_USER','ROLE_ADMIN');
     }
 
 }

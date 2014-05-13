@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use JMS\Serializer\Annotation\Type;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -22,12 +23,14 @@ class TestCategory {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"All"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $name;
     
@@ -35,12 +38,14 @@ class TestCategory {
     /**
      * @ORM\Column(type="string", length=500)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $description;
     
     /**
      * @ORM\Column(type="string", length=50)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $unit;
 

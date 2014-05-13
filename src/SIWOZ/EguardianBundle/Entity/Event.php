@@ -61,10 +61,16 @@ class Event {
      * @Groups({"Default", "All"})
      */
     protected $startDate;
+      /**
+     * @ORM\Column(name="end_date", type="date")
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
+     */
+    protected $endDate;
 
     /**
-     * @ORM\Column(name="interval", type="date")
-     * @Type("DateTime")
+     * @ORM\Column(name="event_interval", type="integer")
+     * @Type("integer")
      * @Groups({"Default", "All"})
      */
     protected $interval;
@@ -102,7 +108,7 @@ class Event {
     /**
      * Set interval
      *
-     * @param \DateTime $interval
+     * @param integer $interval
      * @return Event
      */
     public function setInterval($interval) {
@@ -114,7 +120,7 @@ class Event {
     /**
      * Get interval
      *
-     * @return \DateTime 
+     * @return integer
      */
     public function getInterval() {
         return $this->interval;
@@ -126,7 +132,7 @@ class Event {
      * @param \SIWOZ\EguardianBundle\Entity\SeniorUser $senior
      * @return Event
      */
-    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior = null) {
+    public function setSenior(\SIWOZ\EguardianBundle\Entity\SeniorUser $senior) {
         $this->senior = $senior;
 
         return $this;
@@ -147,7 +153,7 @@ class Event {
      * @param \SIWOZ\EguardianBundle\Entity\GuardianUser $guardian
      * @return Event
      */
-    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian = null) {
+    public function setGuardian(\SIWOZ\EguardianBundle\Entity\GuardianUser $guardian) {
         $this->guardian = $guardian;
 
         return $this;
@@ -162,4 +168,27 @@ class Event {
         return $this->guardian;
     }
 
+
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     * @return Event
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
 }

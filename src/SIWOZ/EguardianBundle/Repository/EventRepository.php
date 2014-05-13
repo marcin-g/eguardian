@@ -9,6 +9,8 @@
 namespace SIWOZ\EguardianBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use SIWOZ\EguardianBundle\Entity\Event;
+use SIWOZ\EguardianBundle\Entity\SeniorNotification;
 
 /**
  * Description of VisitRepository
@@ -31,15 +33,14 @@ class EventRepository extends EntityRepository {
     }
 
     public function getEvents($user, $className) {
-        $qb=$this->getEntityManager()->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
             $qb->select('e')
                     ->from($className, 'e')
                     ->where('e.guardian= :user')
                     ->setParameter('user', $user);
-        }
-        else{
-            
+        } else {
+
             $qb->select('e')
                     ->from($className, 'e')
                     ->where('e.senior= :user')
@@ -53,9 +54,29 @@ class EventRepository extends EntityRepository {
         }
     }
 
-    public function addEvent($event) {
+    public function addEvent(Event $event) {
         $em = $this->getEntityManager();
+        $query = $this->getEntityManager()
+                        ->createQuery(
+                                'SELECT u FROM SIWOZ\EguardianBundle\Entity\User u
+                                WHERE u.id = :id'
+                        )->setParameter('id', $event->getSenior()->getId());
+        $senior=$query->getSingleResult();
+        $query = $this->getEntityManager()
+                        ->createQuery(
+                                'SELECT u FROM SIWOZ\EguardianBundle\Entity\User u
+                                WHERE u.id = :id'
+                        )->setParameter('id', $event->getGuardian()->getId());
+        $guardian=$query->getSingleResult();
+        $event->setGuardian($guardian);
+        $event->setSenior($senior);
         $em->persist($event);
+        $newNotification = new SeniorNotification();
+        $newNotification->setEvent($event);
+        $newNotification->setRegistrationId($event->getSenior()->getRegistrationId());
+        $newNotification->setState(0);
+        $newNotification->setSendDate($event->getStartDate());
+        $em->persist($newNotification);
         $em->flush();
     }
 

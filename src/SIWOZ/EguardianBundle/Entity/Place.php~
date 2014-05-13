@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -22,35 +23,41 @@ class Place {
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $street;
 
     /**
      * @ORM\Column(name="street_no", type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $streetNo;
     /**
      * @ORM\Column(name="apartment_no", type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $apartmentNo;
     
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $city;
     
     /**
      * @ORM\Column(name="postcode", type="string", length=5)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $postCode;
     
@@ -58,6 +65,7 @@ class Place {
     /**
      * @ORM\Column(name="telephone_number", type="string", length=11)
      * @Type("string")
+     * @Groups({"Default", "All"})
      */
     protected $telephoneNumber;
     

@@ -15,6 +15,7 @@ namespace SIWOZ\EguardianBundle\Entity;
  */
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\EventRepository")
@@ -27,6 +28,7 @@ class MedicineEvent extends Event {
      * @ORM\ManyToOne(targetEntity="Medicine",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="medicine_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Medicine")
+     * @Groups({"Default", "All"})
      * 
      */
     protected $medicine;
@@ -34,30 +36,35 @@ class MedicineEvent extends Event {
     /**
      * @var integer
      * @Type("int")
+     * @Groups({"Default", "All"})
      */
     protected $id;
 
     /**
      * @var \DateTime
-     * @Type("date")
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
      */
     protected $startDate;
 
     /**
-     * @var \DateTime
-     * @Type("date")
+     * @var \integer
+     * @Type("integer")
+     * @Groups({"Default", "All"})
      */
     protected $interval;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\SeniorUser
      * @Type("SIWOZ\EguardianBundle\Entity\SeniorUser")
+     * @Groups({"Default", "All"})
      */
     protected $senior;
 
     /**
      * @var \SIWOZ\EguardianBundle\Entity\GuardianUser
      * @Type("SIWOZ\EguardianBundle\Entity\GuardianUser")
+     * @Groups({"Default", "All"})
      */
     protected $guardian;
 
@@ -185,5 +192,33 @@ class MedicineEvent extends Event {
     public function getGuardian()
     {
         return $this->guardian;
+    }
+    /**
+     * @var \DateTime
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
+     */
+    protected $endDate;
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     * @return MedicineEvent
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }

@@ -48,8 +48,8 @@ class MedicineEvent extends Event {
     protected $startDate;
 
     /**
-     * @var \DateTime
-     * @Type("DateTime")
+     * @var integer
+     * @Type("integer")
      * @Groups({"Default", "All"})
      */
     protected $interval;
@@ -105,7 +105,7 @@ class MedicineEvent extends Event {
     /**
      * Set interval
      *
-     * @param \DateTime $interval
+     * @param integer $interval
      * @return MedicineEvent
      */
     public function setInterval($interval)
@@ -118,7 +118,7 @@ class MedicineEvent extends Event {
     /**
      * Get interval
      *
-     * @return \DateTime 
+     * @return integer
      */
     public function getInterval()
     {
@@ -192,5 +192,33 @@ class MedicineEvent extends Event {
     public function getGuardian()
     {
         return $this->guardian;
+    }
+    /**
+     * @var \DateTime
+     * @Type("DateTime")
+     * @Groups({"Default", "All"})
+     */
+    protected $endDate;
+    /**
+     * Set endDate
+     *
+     * @param \DateTime $endDate
+     * @return MedicineEvent
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get endDate
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }
