@@ -62,6 +62,7 @@ class UserController extends Controller {
         $json = $this->getRequest()->getContent();
         $em = $this->getDoctrine()->getManager();
         $seniorUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\SeniorUser', 'json');
+        $this->getDoctrine()->getRepository('EguardianBundle:User')->addUser($seniorUser);
         $em->persist($seniorUser);
         $em->flush();
         return new Response($this->serializer->serialize($seniorUser, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
@@ -70,7 +71,7 @@ class UserController extends Controller {
     public function putGuardianUserAction() {
         $json = $this->getRequest()->getContent();
         $guardianUser = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
-        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($guardianUser);
+        $this->getDoctrine()->getRepository('EguardianBundle:User')->addUser($guardianUser);
         return new Response($this->serializer->serialize($guardianUser, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 

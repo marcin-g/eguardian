@@ -50,7 +50,7 @@ class User implements UserInterface, \Serializable {
     protected $password;
 
     /**
-     * @ORM\OneToOne(targetEntity="Place",cascade={"persist","remove"})
+     * @ORM\OneToOne(targetEntity="Place",cascade={"persist","remove"}, fetch="EAGER")
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
      * @Groups({"All"})
