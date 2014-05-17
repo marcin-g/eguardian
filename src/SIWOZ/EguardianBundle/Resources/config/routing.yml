@@ -106,3 +106,20 @@ eguardian_event_post:
     methods:  [POST]
     requirements:
         type:   meal|visit|medicine|test
+eguardian_alarm_put:
+    pattern:  /alarm
+    defaults: { _controller: EguardianBundle:Alarm:putAlarm }
+    methods:  [PUT]
+eguardian_alarm_send:
+    pattern:  /alarm/send
+    defaults: { _controller: EguardianBundle:Alarm:sendAlarms }
+    methods:  [GET]
+eguardian_notification_guardian_send:
+    pattern:  /notification/guardian/send
+    defaults: { _controller: EguardianBundle:Alarm:sendGuardianNotification }
+    methods:  [GET]
+eguardian_notification_senior_send:
+    pattern:  /notification/senior/send
+    defaults: { _controller: EguardianBundle:Alarm:sendSeniorNotification }
+    methods:  [GET]
+

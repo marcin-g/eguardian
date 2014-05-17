@@ -94,5 +94,26 @@ class NotificationController extends Controller {
         }
         return new Response("OK");
     }
+    
+     public function sendGuardianNotificationAction() {
+
+        $notifications = $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->getNotificationToSend();
+        $client = new FileGetContents();
+        foreach ($notifications as $notification) {
+            $request = $this->helper->createEventNotificationRequest($notification);
+            $response = new BuzzResponse();
+            $client->send($request, $response);
+            if ($response->isOk()) {
+                $json_decoded = json_decode($response->getContent());
+                if ($json_decoded->success == 1) {
+                    $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->updateSuccesNotification($notification);
+                } else {
+                    $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->updateFailNotification($notification);
+                }
+            }
+            $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->updateFailNotification($notification);
+        }
+        return new Response("OK");
+    }
 
 }

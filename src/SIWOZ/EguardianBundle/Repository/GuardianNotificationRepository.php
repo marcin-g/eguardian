@@ -12,11 +12,11 @@ use Doctrine\ORM\EntityRepository;
 use SIWOZ\EguardianBundle\Entity\SeniorNotification;
 
 /**
- * Description of SeniorNotificationRepository
+ * Description of GuardianNotificationRepository
  *
  * @author Marcin
  */
-class SeniorNotificationRepository extends EntityRepository {
+class GuardianNotificationRepository extends EntityRepository {
 
     public function addNotification($notification) {
         $em = $this->getEntityManager();
@@ -27,7 +27,7 @@ class SeniorNotificationRepository extends EntityRepository {
     public function getNotificationToSend() {
         $query = $this->getEntityManager()
                 ->createQuery(
-                'SELECT n FROM SIWOZ\EguardianBundle\Entity\SeniorNotification n
+                'SELECT n FROM SIWOZ\EguardianBundle\Entity\GuardianNotification n
                                 WHERE n.state=0 and n.sendDate < CURRENT_DATE()'
         );
         try {
@@ -59,7 +59,7 @@ class SeniorNotificationRepository extends EntityRepository {
         $em->flush();
     }
 
-    public function updateFailNotification(SeniorNotification $notification) {
+    public function updateFailNotification(GuardianNotification $notification) {
         $em = $this->getEntityManager();
         if ($notification->getTry() == 5) {
             $notification->setState(2);

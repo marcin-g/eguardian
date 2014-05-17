@@ -19,7 +19,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Groups;
 
-class SeniorNotificationAdapter {
+class GuardianNotificationAdapter {
 
     /**
      * @Type("ArrayCollection<string>")

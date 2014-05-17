@@ -18,10 +18,10 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\SeniorNotificationRepository")
- * @ORM\Table(name="senior_notification")
+ * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\GuardianNotificationRepository")
+ * @ORM\Table(name="guardian_notification")
  */
-class SeniorNotification {
+class GuardianNotification {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -39,12 +39,12 @@ class SeniorNotification {
     protected $registrationId;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Event")
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
-     * @Type("SIWOZ\EguardianBundle\Entity\Event")
+     * @ORM\ManyToOne(targetEntity="SeniorNotification")
+     * @ORM\JoinColumn(name="senior_notifaction_id", referencedColumnName="id")
+     * @Type("SIWOZ\EguardianBundle\Entity\SeniorNotification")
      * @Groups({"Default", "All"})
      */
-    protected $event;
+    protected $seniorNotification;
     
 
     /**
@@ -130,26 +130,26 @@ class SeniorNotification {
     }
 
     /**
-     * Set event
+     * Set seniorNotification
      *
-     * @param \SIWOZ\EguardianBundle\Entity\Event $event
+     * @param \SIWOZ\EguardianBundle\Entity\SeniorNotification $seniorNotification
      * @return SeniorNotification
      */
-    public function setEvent(\SIWOZ\EguardianBundle\Entity\Event $event = null)
+    public function setSeniorNotification(\SIWOZ\EguardianBundle\Entity\SeniorNotification $seniorNotification = null)
     {
-        $this->event = $event;
+        $this->seniorNotification = $event;
 
         return $this;
     }
 
     /**
-     * Get event
+     * Get seniorNotification
      *
-     * @return \SIWOZ\EguardianBundle\Entity\Event 
+     * @return \SIWOZ\EguardianBundle\Entity\SeniorNotification 
      */
-    public function getEvent()
+    public function getSeniorNotification()
     {
-        return $this->event;
+        return $this->seniorNotification;
     }
 
     /**

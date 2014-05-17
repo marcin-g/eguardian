@@ -48,7 +48,7 @@ class MedicineEvent extends Event {
     protected $startDate;
 
     /**
-     * @var \integer
+     * @var integer
      * @Type("integer")
      * @Groups({"Default", "All"})
      */
@@ -105,7 +105,7 @@ class MedicineEvent extends Event {
     /**
      * Set interval
      *
-     * @param \DateTime $interval
+     * @param integer $interval
      * @return MedicineEvent
      */
     public function setInterval($interval)
@@ -118,7 +118,7 @@ class MedicineEvent extends Event {
     /**
      * Get interval
      *
-     * @return \DateTime 
+     * @return integer
      */
     public function getInterval()
     {

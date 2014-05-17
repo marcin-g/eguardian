@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use SIWOZ\EguardianBundle\Entity\SeniorNotification;
+use SIWOZ\EguardianBundle\Entity\GuardianNotificationNotification;
 
 /**
  * Description of SeniorNotificationRepository
@@ -63,6 +64,12 @@ class SeniorNotificationRepository extends EntityRepository {
         $em = $this->getEntityManager();
         if ($notification->getTry() == 5) {
             $notification->setState(2);
+            $newNotification = new GuardianNotificationNotification();
+            $newNotification->setSeniorNotification($notification->getEvent());
+            $newNotification->setRegistrationId($notification->getEvent()->getGuardian()->getRegistrationId());
+            $newNotification->setState(0);
+            $newNotification->setSendDate(new \DateTime());
+            $em->persist($newNotification);
         } else {
             $notification->setTry($notification->getTry() + 1);
         }

@@ -1,0 +1,68 @@
+<?php
+
+namespace SIWOZ\EguardianBundle\Entity;
+
+use JMS\Serializer\Annotation\Type;
+use JMS\Serializer\Annotation\Discriminator;
+use JMS\Serializer\Annotation\Groups;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ * Description of Event
+ *
+ * @author Marcin
+ */
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\AlarmRepository")
+ * @ORM\Table(name="alarm")
+ */
+class Alarm {
+
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
+     * @Groups({"All"})
+     */
+    protected $id;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="SeniorUser")
+     * @ORM\JoinColumn(name="senior_user_id", referencedColumnName="id")
+     * @Type("SIWOZ\EguardianBundle\Entity\SeniorUser")
+     * @Groups({"Default", "All"})
+     */
+    protected $senior;
+
+    /**
+     * 
+     * @ORM\ManyToOne(targetEntity="GuardianUser")
+     * @ORM\JoinColumn(name="guardian_user_id", referencedColumnName="id")
+     * @Type("SIWOZ\EguardianBundle\Entity\GuardianUser")
+     * @Groups({"Default", "All"})
+     */
+    protected $guardian;
+
+    /**
+     * @ORM\Column(type="smallint")
+     * @Type("integer")
+     * @Groups({"Default", "All"})
+     */
+    protected $try;
+      /**
+     * @ORM\Column(type="smallint")
+     * @Type("integer")
+     * @Groups({"Default", "All"})
+     */
+    protected $state;
+
+
+}
