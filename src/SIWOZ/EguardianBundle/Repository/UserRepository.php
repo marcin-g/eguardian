@@ -75,9 +75,9 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
         $em->flush();
     }
 
-    public function updateRegisteredId($user, $id){
+    public function updateRegistrationId($user, $id){
         $em = $this->getEntityManager();
-        $user->setRegisteredId($id);
+        $user->setRegistrationId($id);
         $em->flush();
     }
 

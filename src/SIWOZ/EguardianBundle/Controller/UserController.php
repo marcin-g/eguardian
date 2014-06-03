@@ -105,7 +105,7 @@ class UserController extends Controller {
         $user=$this->get("security.context")->getToken()->getUser();
         $obj = json_decode($json);
         $id=$obj->{'RegistrationId'};
-        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateRegisteredId($user,$id);
+        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateRegistrationId($user,$id);
         return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
