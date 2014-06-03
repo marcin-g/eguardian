@@ -44,6 +44,10 @@ eguardian_send_notification:
     pattern:  /send
     defaults: { _controller: EguardianBundle:Notification:send }
     methods:  [GET]
+eguardian_send_notification:
+    pattern:  /send/event/{id}
+    defaults: { _controller: EguardianBundle:Notification:sendEvent }
+    methods:  [GET]
 eguardian_send_senior_notification:
     pattern:  /send/senior
     defaults: { _controller: EguardianBundle:Notification:sendSeniorNotification }

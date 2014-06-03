@@ -30,7 +30,7 @@ class TestCategory {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $name;
     
@@ -38,14 +38,14 @@ class TestCategory {
     /**
      * @ORM\Column(type="string", length=500)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $description;
     
     /**
      * @ORM\Column(type="string", length=50)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $unit;
 

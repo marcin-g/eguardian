@@ -29,7 +29,7 @@ class Test {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $name;
 
@@ -38,7 +38,7 @@ class Test {
      * @ORM\ManyToOne(targetEntity="TestCategory")
      * @ORM\JoinColumn(name="test_category_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\TestCategory")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $testCategory;
 

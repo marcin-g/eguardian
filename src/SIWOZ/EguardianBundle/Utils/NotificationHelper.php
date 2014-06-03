@@ -11,6 +11,7 @@ namespace SIWOZ\EguardianBundle\Utils;
 use SIWOZ\EguardianBundle\Entity\SeniorNotification;
 use SIWOZ\EguardianBundle\Entity\EventData;
 use SIWOZ\EguardianBundle\Entity\SeniorNotificationAdapter;
+use SIWOZ\EguardianBundle\Entity\Event;
 use Buzz\Message\Request as BuzzRequest;
 use JMS\Serializer;
 use JMS\Serializer\SerializationContext;
@@ -33,7 +34,21 @@ class NotificationHelper {
         $newNotification = new SeniorNotificationAdapter();
         $newNotification->addRegistration_ids($notification->getRegistrationId());
         $newNotification->setData(new EventData($notification->getEvent()));
-        $jsonContent = $this->serializer->serialize($newNotification, 'json');
+        $jsonContent = $this->serializer->serialize($newNotification, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default')));
+
+        $request = new BuzzRequest('POST', '/gcm/send', 'http://android.googleapis.com');
+        $request->addHeaders(array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
+          '));
+        $request->addHeaders(array('Content-type: application/json'));
+        $request->addHeaders(array('Content-length: ' . strlen((string) $jsonContent)));
+        $request->setContent($jsonContent);
+        return $request;
+    }    
+    public function createEventNotificationRequestFromEvent($event) {
+        $newNotification = new SeniorNotificationAdapter();
+        $newNotification->addRegistration_ids($event->getSenior()->getRegistrationId());
+        $newNotification->setData(new EventData($event));
+        $jsonContent = $this->serializer->serialize($newNotification, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Notification')));
 
         $request = new BuzzRequest('POST', '/gcm/send', 'http://android.googleapis.com');
         $request->addHeaders(array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o

@@ -28,7 +28,7 @@ class MealEvent extends Event {
      * @ORM\ManyToOne(targetEntity="Meal",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="meal_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Meal")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $meal;
 
@@ -43,14 +43,14 @@ class MealEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $startDate;
 
     /**
      * @var \integer
      * @Type("integer")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $interval;
 
@@ -196,7 +196,7 @@ class MealEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $endDate;
 

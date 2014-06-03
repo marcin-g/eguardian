@@ -32,7 +32,7 @@ class MedicineCategory {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $name;
 

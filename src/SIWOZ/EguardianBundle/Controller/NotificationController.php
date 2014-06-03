@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer;
+use JMS\Serializer\SerializationContext;
 use Curl\Curl;
 use Buzz\Message\Request as BuzzRequest;
 use Buzz\Message\Response as BuzzResponse;
@@ -62,14 +63,14 @@ class NotificationController extends Controller {
         $client = new FileGetContents();
         $client->send($request, $response);
 
-/*
-        if ($response->isOk()) {
-            $json_decoded = json_decode($response->getContent());
-            if ($json_decoded->success == 1) {
+        /*
+          if ($response->isOk()) {
+          $json_decoded = json_decode($response->getContent());
+          if ($json_decoded->success == 1) {
 
-                return new Response("elo");
-            }
-        }*/
+          return new Response("elo");
+          }
+          } */
         //return new Response($jsonContent);
         return new Response($response);
     }
@@ -89,13 +90,14 @@ class NotificationController extends Controller {
                 } else {
                     $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notification);
                 }
+            } else {
+                $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notification);
             }
-            $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notification);
         }
         return new Response("OK");
     }
-    
-     public function sendGuardianNotificationAction() {
+
+    public function sendGuardianNotificationAction() {
 
         $notifications = $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->getNotificationToSend();
         $client = new FileGetContents();
@@ -110,10 +112,29 @@ class NotificationController extends Controller {
                 } else {
                     $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->updateFailNotification($notification);
                 }
+            } else {
+                $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->updateFailNotification($notification);
             }
-            $this->getDoctrine()->getRepository('EguardianBundle:GuardianNotification')->updateFailNotification($notification);
         }
         return new Response("OK");
+    }
+
+    public function sendEventAction($id) {
+
+        $notification = $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->getNotificationById($id);
+        //return new Response($this->serializer->serialize($notification, 'json', SerializationContext::create()->setGroups(array('Notification'))));
+       $client = new FileGetContents();
+        $request = $this->helper->createEventNotificationRequestFromEvent($notification);
+        $response = new BuzzResponse();
+        $client->send($request, $response);
+        if ($response->isOk()) {
+            $json_decoded = json_decode($response->getContent());
+            if ($json_decoded->success == 1) {
+
+                return new Response("OK");
+            }
+        }
+        return new Response('Request:\n'.$request->getContent().'Response:\n'.$response->getContent());
     }
 
 }

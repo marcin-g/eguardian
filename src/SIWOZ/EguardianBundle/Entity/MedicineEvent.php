@@ -28,7 +28,7 @@ class MedicineEvent extends Event {
      * @ORM\ManyToOne(targetEntity="Medicine",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="medicine_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Medicine")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      * 
      */
     protected $medicine;
@@ -43,14 +43,14 @@ class MedicineEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $startDate;
 
     /**
      * @var integer
      * @Type("integer")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $interval;
 
@@ -196,7 +196,7 @@ class MedicineEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $endDate;
     /**

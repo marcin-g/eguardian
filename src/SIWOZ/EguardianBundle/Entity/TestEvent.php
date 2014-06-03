@@ -28,7 +28,7 @@ class TestEvent extends Event {
      * @ORM\ManyToOne(targetEntity="Test",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="test_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Test")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $test;
 
@@ -42,14 +42,14 @@ class TestEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $startDate;
 
     /**
      * @var integer
      * @Type("integer")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $interval;
 
@@ -195,7 +195,7 @@ class TestEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $endDate;
 

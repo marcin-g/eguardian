@@ -28,7 +28,7 @@ class VisitEvent extends Event {
      * @ORM\ManyToOne(targetEntity="Visit",cascade={"persist","remove"})
      * @ORM\JoinColumn(name="visit_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Visit")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $visit;
 
@@ -42,14 +42,14 @@ class VisitEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $startDate;
 
     /**
      * @var integer
      * @Type("integer")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $interval;
 
@@ -195,7 +195,7 @@ class VisitEvent extends Event {
     /**
      * @var \DateTime
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $endDate;
 

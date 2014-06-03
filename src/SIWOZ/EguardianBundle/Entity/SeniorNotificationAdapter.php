@@ -23,13 +23,13 @@ class SeniorNotificationAdapter {
 
     /**
      * @Type("ArrayCollection<string>")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $registration_ids;
 
     /**
      * @Type("SIWOZ\EguardianBundle\Entity\EventData")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $data;
     

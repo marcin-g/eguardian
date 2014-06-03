@@ -30,7 +30,7 @@ class Visit {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $name;
     
@@ -39,7 +39,7 @@ class Visit {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $doctorName;
 
@@ -48,7 +48,7 @@ class Visit {
      * @ORM\OneToOne(targetEntity="Place")
      * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\Place")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $place;
 

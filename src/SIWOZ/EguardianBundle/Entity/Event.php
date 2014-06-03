@@ -22,9 +22,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="SIWOZ\EguardianBundle\Repository\EventRepository")
  * @ORM\Table(name="event")
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr", type="smallint")
- * @ORM\DiscriminatorMap({"0" = "MealEvent", "1" = "VisitEvent","2" = "MedicineEvent","3" = "TestEvent"})
- * @Discriminator(field = "discr", map = {"0" = "SIWOZ\EguardianBundle\Entity\MealEvent", "1" = "SIWOZ\EguardianBundle\Entity\VisitEvent","2" = "SIWOZ\EguardianBundle\Entity\MedicineEvent","3" = "SIWOZ\EguardianBundle\Entity\TestEvent"})
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"meal" = "MealEvent", "visit" = "VisitEvent","medicine" = "MedicineEvent","test" = "TestEvent"})
+ * @Discriminator(field = "discr", map = {"meal":"SIWOZ\EguardianBundle\Entity\MealEvent", "visit":"SIWOZ\EguardianBundle\Entity\VisitEvent","medicine":"SIWOZ\EguardianBundle\Entity\MedicineEvent","test":"SIWOZ\EguardianBundle\Entity\TestEvent"})
  */
 class Event {
 
@@ -58,20 +58,20 @@ class Event {
     /**
      * @ORM\Column(name="start_date", type="date")
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $startDate;
       /**
      * @ORM\Column(name="end_date", type="date")
      * @Type("DateTime")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $endDate;
 
     /**
      * @ORM\Column(name="event_interval", type="integer")
      * @Type("integer")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $interval;
 

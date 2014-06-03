@@ -77,4 +77,17 @@ class SeniorNotificationRepository extends EntityRepository {
         $em->flush();
     }
 
+    public function getNotificationById($id) {
+        $query = $this->getEntityManager()
+                        ->createQuery(
+                                'SELECT e FROM SIWOZ\EguardianBundle\Entity\Event e
+                                WHERE e.id=:id'
+                        )->setParameter('id', $id);
+        try {
+            return $query->getSingleResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            
+        }
+    }
+
 }

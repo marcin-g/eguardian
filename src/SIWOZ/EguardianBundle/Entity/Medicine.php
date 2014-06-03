@@ -30,14 +30,14 @@ class Medicine {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $dose;
 
@@ -45,7 +45,7 @@ class Medicine {
      * @ORM\ManyToOne(targetEntity="MedicineCategory", inversedBy="medicines")
      * @ORM\JoinColumn(name="medicine_category_id", referencedColumnName="id")
      * @Type("SIWOZ\EguardianBundle\Entity\MedicineCategory")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $medicineCategory;
 

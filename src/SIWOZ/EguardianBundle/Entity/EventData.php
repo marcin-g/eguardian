@@ -21,7 +21,7 @@ class EventData {
 
     /**
      * @Type("SIWOZ\EguardianBundle\Entity\Event")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     
     protected $event;

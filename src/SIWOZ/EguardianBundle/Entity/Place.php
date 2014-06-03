@@ -30,34 +30,34 @@ class Place {
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $street;
 
     /**
      * @ORM\Column(name="street_no", type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $streetNo;
     /**
      * @ORM\Column(name="apartment_no", type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $apartmentNo;
     
     /**
      * @ORM\Column(type="string", length=200)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $city;
     
     /**
      * @ORM\Column(name="postcode", type="string", length=5)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $postCode;
     
@@ -65,7 +65,7 @@ class Place {
     /**
      * @ORM\Column(name="telephone_number", type="string", length=11)
      * @Type("string")
-     * @Groups({"Default", "All"})
+     * @Groups({"Default", "All","Notification"})
      */
     protected $telephoneNumber;
     
