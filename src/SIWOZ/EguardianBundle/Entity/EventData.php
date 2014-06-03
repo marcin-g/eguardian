@@ -19,9 +19,9 @@ use JMS\Serializer\Annotation\Groups;
 
 class EventData {
 
+     //@Type("SIWOZ\EguardianBundle\Entity\Event")
     /**
-     * @Type("SIWOZ\EguardianBundle\Entity\Event")
-     * @Groups({"Default", "All","Notification"})
+     * @Groups({"Default", "All", "Notification"})
      */
     
     protected $event;

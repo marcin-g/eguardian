@@ -48,7 +48,7 @@ class NotificationHelper {
         $newNotification = new SeniorNotificationAdapter();
         $newNotification->addRegistration_ids($event->getSenior()->getRegistrationId());
         $newNotification->setData(new EventData($event));
-        $jsonContent = $this->serializer->serialize($newNotification, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Notification')));
+        $jsonContent = $this->serializer->serialize($newNotification, 'json',SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Notification')));
 
         $request = new BuzzRequest('POST', '/gcm/send', 'http://android.googleapis.com');
         $request->addHeaders(array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o

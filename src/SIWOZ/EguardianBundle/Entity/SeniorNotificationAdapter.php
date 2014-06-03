@@ -18,6 +18,7 @@ namespace SIWOZ\EguardianBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\MaxDepth;
 
 class SeniorNotificationAdapter {
 
@@ -30,6 +31,7 @@ class SeniorNotificationAdapter {
     /**
      * @Type("SIWOZ\EguardianBundle\Entity\EventData")
      * @Groups({"Default", "All","Notification"})
+     * @MaxDepth(5)
      */
     protected $data;
     
