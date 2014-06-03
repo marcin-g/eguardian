@@ -100,7 +100,7 @@ class UserController extends Controller {
         return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
-    public function updateRegisteredIdAction() {
+    public function updateRegistrationIdAction() {
         $json = $this->getRequest()->getContent();
         $user=$this->get("security.context")->getToken()->getUser();
         $obj = json_decode($json);
