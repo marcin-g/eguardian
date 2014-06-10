@@ -60,9 +60,9 @@ class EventController extends Controller {
         return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 
-    public function updateEventAction() {
+    public function updateEventAction($className) {
         $json = $this->getRequest()->getContent();
-        $event = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\Event', 'json');
+        $event = $this->serializer->deserialize($json, $className, 'json');
         $event = $this->getDoctrine()->getRepository('EguardianBundle:Event')->updateEvent($event);
         return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }

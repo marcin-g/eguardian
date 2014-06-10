@@ -106,16 +106,26 @@ eguardian_event_medicines_get:
     pattern:  /event/medicine
     defaults: { _controller: EguardianBundle:Event:getEvents, className: 'SIWOZ\EguardianBundle\Entity\MedicineEvent' }
     methods:  [GET]    
+eguardian_event_meals_post:
+    pattern:  /event/meal
+    defaults: { _controller: EguardianBundle:Event:updateEvent, className: 'SIWOZ\EguardianBundle\Entity\MealEvent' }
+    methods:  [POST]    
+eguardian_event_tests_post:
+    pattern:  /event/test
+    defaults: { _controller: EguardianBundle:Event:updateEvent, className: 'SIWOZ\EguardianBundle\Entity\TestEvent' }
+    methods:  [POST]    
+eguardian_event_visits_post:
+    pattern:  /event/visit
+    defaults: { _controller: EguardianBundle:Event:updateEvent, className: 'SIWOZ\EguardianBundle\Entity\VisitEvent' }
+    methods:  [POST]    
+eguardian_event_medicines_post:
+    pattern:  /event/medicine
+    defaults: { _controller: EguardianBundle:Event:updateEvent, className: 'SIWOZ\EguardianBundle\Entity\MedicineEvent' }
+    methods:  [POST]   
 eguardian_event_delete:
     pattern:  /event/{type}
     defaults: { _controller: EguardianBundle:Event:deleteEvent }
     methods:  [DELETE]
-    requirements:
-        type:   meal|visit|medicine|test
-eguardian_event_post:
-    pattern:  /event/{type}
-    defaults: { _controller: EguardianBundle:Event:updateEvent }
-    methods:  [POST]
     requirements:
         type:   meal|visit|medicine|test
 eguardian_alarm_put:
