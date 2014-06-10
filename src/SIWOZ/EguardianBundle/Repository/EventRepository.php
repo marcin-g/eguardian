@@ -139,16 +139,16 @@ class EventRepository extends EntityRepository {
             $oldEvent->setStartDate($event->getStartDate());
         }
         if ($event->getEndDate() != null) {
-            $oldEvent->setEndDate($event->getStartDate());
+            $oldEvent->setEndDate($event->getEndDate());
         }
         if ($event->getGuardian() != null) {
-            $oldEvent->setGuardian($event->getStartDate());
+            $oldEvent->setGuardian($event->getGuardian());
         }
         if ($event->getSenior() != null) {
-            $oldEvent->setSenior($event->getStartDate());
+            $oldEvent->setSenior($event->getSenior());
         }
         if ($event->getInterval() != null) {
-            $oldEvent->setInterval($event->getStartDate());
+            $oldEvent->setInterval($event->getInterval());
         }
         switch (get_class($event)) {
             case 'SIWOZ\EguardianBundle\Entity\MealEvent':
