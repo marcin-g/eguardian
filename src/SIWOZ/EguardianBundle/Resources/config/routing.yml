@@ -138,10 +138,10 @@ eguardian_alarm_send:
     methods:  [GET]
 eguardian_notification_guardian_send:
     pattern:  /notification/guardian/send
-    defaults: { _controller: EguardianBundle:Alarm:sendGuardianNotification }
+    defaults: { _controller: EguardianBundle:Notification:sendGuardianNotification }
     methods:  [GET]
 eguardian_notification_senior_send:
     pattern:  /notification/senior/send
-    defaults: { _controller: EguardianBundle:Alarm:sendSeniorNotification }
+    defaults: { _controller: EguardianBundle:Notification:sendSeniorNotification }
     methods:  [GET]
 
