@@ -74,19 +74,34 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
         $originalUser = $this->getUserByUsername($user->getUsername());
         $originalPlace = $originalUser->getPlace();
         $modifiedPlace = $user->getPlace();
-        $originalPlace->setStreet($modifiedPlace->getStreet());
-        $originalPlace->setStreetNo($modifiedPlace->getStreetNo());
-        $originalPlace->setApartmentNo($modifiedPlace->getApartmentNo());
-        $originalPlace->setCity($modifiedPlace->getCity());
-        $originalPlace->etPostCode($modifiedPlace->getPostCode());
-        $originalPlace->setTelephoneNumber($modifiedPlace->getTelephoneNumber());
+        if ($modifiedPlace->getStreet() != null) {
+            $originalPlace->setStreet($modifiedPlace->getStreet());
+        }
+        if ($modifiedPlace->getStreetNo() != null) {
+            $originalPlace->setStreetNo($modifiedPlace->getStreetNo());
+        }
+        if ($modifiedPlace->getApartmentNo() != null) {
+            $originalPlace->setApartmentNo($modifiedPlace->getApartmentNo());
+        }
+
+        if ($modifiedPlace->getCity() != null) {
+            $originalPlace->setCity($modifiedPlace->getCity());
+        }
+
+        if ($modifiedPlace->getPostCode() != null) {
+            $originalPlace->setPostCode($modifiedPlace->getPostCode());
+        }
+
+        if ($modifiedPlace->getTelephoneNumber() != null) {
+            $originalPlace->setTelephoneNumber($modifiedPlace->getTelephoneNumber());
+        }
         $em->merge($originalPlace);
         $em->merge($originalUser);
         $em->flush();
         return $originalUser;
     }
 
-    public function updateRegistrationId($user, $id){
+    public function updateRegistrationId($user, $id) {
         $em = $this->getEntityManager();
         $user->setRegistrationId($id);
         $em->flush();
