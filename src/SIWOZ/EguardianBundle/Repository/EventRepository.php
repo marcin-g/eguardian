@@ -146,10 +146,22 @@ class EventRepository extends EntityRepository {
             $oldEvent->setEndDate($event->getEndDate());
         }
         if ($event->getGuardian() != null) {
-            $oldEvent->setGuardian($event->getGuardian());
+            $query = $this->getEntityManager()
+                            ->createQuery(
+                                    'SELECT u FROM SIWOZ\EguardianBundle\Entity\User u
+                                WHERE u.id = :id'
+                            )->setParameter('id', $event->getGuardian()->getId());
+            $guardian = $query->getSingleResult();
+            $oldEvent->setGuardian($guardian);
         }
         if ($event->getSenior() != null) {
-            $oldEvent->setSenior($event->getSenior());
+            $query = $this->getEntityManager()
+                            ->createQuery(
+                                    'SELECT u FROM SIWOZ\EguardianBundle\Entity\User u
+                                WHERE u.id = :id'
+                            )->setParameter('id', $event->getSenior()->getId());
+            $senior = $query->getSingleResult();
+            $oldEvent->setSenior($senior);
         }
         if ($event->getInterval() != null) {
             $oldEvent->setInterval($event->getInterval());
