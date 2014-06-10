@@ -99,6 +99,12 @@ class UserController extends Controller {
         $user = $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($user);
         return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
+    public function updateGuardianUserAction() {
+        $json = $this->getRequest()->getContent();
+        $user = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\GuardianUser', 'json');
+        $user = $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($user);
+        return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
+    }
 
     public function updateRegistrationIdAction() {
         $json = $this->getRequest()->getContent();

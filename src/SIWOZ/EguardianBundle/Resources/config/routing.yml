@@ -28,6 +28,10 @@ eguardian_update_user:
     pattern:  /user
     defaults: { _controller: EguardianBundle:User:updateUser }
     methods:  [POST]
+eguardian_update_guardian_user:
+    pattern:  /guardian/user
+    defaults: { _controller: EguardianBundle:User:updateGuardianUser }
+    methods:  [POST]
 eguardian_update_registration_id:
     pattern:  /user/registrationId
     defaults: { _controller: EguardianBundle:User:updateRegistrationId }
