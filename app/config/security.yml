@@ -57,5 +57,6 @@ security:
         - { path: ^/login$, roles: ROLE_USER }
         - { path: ^/login/guardian, roles: ROLE_ADMIN}
         - { path: ^/user/registeredId, roles: ROLE_USER, methods: [POST]}
+        - { path: ^/event, roles: ROLE_USER}
        # - { path: ^/user, roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
