@@ -71,8 +71,19 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
 
     public function updateUser($user) {
         $em = $this->getEntityManager();
-        $em->merge($user);
+        $originalUser = $this->getUserByUsername($user->getUsername());
+        $originalPlace = $originalUser->getPlace();
+        $modifiedPlace = $user->getPlace();
+        $originalPlace->setStreet($modifiedPlace->getStreet());
+        $originalPlace->setStreetNo($modifiedPlace->getStreetNo());
+        $originalPlace->setApartmentNo($modifiedPlace->getApartmentNo());
+        $originalPlace->setCity($modifiedPlace->getCity());
+        $originalPlace->etPostCode($modifiedPlace->getPostCode());
+        $originalPlace->setTelephoneNumber($modifiedPlace->getTelephoneNumber());
+        $em->merge($originalPlace);
+        $em->merge($originalUser);
         $em->flush();
+        return $originalUser;
     }
 
     public function updateRegistrationId($user, $id){

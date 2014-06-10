@@ -96,7 +96,7 @@ class UserController extends Controller {
     public function updateUserAction() {
         $json = $this->getRequest()->getContent();
         $user = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\User', 'json');
-        $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($user);
+        $user = $this->getDoctrine()->getRepository('EguardianBundle:User')->updateUser($user);
         return new Response($this->serializer->serialize($user, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('All'))));
     }
 
