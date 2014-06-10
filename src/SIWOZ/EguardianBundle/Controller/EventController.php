@@ -64,7 +64,12 @@ class EventController extends Controller {
         $json = $this->getRequest()->getContent();
         $event = $this->serializer->deserialize($json, $className, 'json');
         $event = $this->getDoctrine()->getRepository('EguardianBundle:Event')->updateEvent($event);
-        return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
+        if ($event != null) {
+            return new Response($this->serializer->serialize($event, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
+        }
+        else{
+            throw $this->createNotFoundException('The event or '.substr($className,strrpos($className,'\\'+1).' not found'));
+        }
     }
 
     public function deleteEventAction() {
@@ -76,7 +81,7 @@ class EventController extends Controller {
 
     public function getEventsAction($className) {
         $user = $this->get("security.context")->getToken()->getUser();
-        $events = $this->getDoctrine()->getRepository('EguardianBundle:Event')->getEvents($user,$className);
+        $events = $this->getDoctrine()->getRepository('EguardianBundle:Event')->getEvents($user, $className);
         return new Response($this->serializer->serialize($events, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default'))));
     }
 

@@ -34,7 +34,8 @@ class EventRepository extends EntityRepository {
         } catch (\Doctrine\ORM\NoResultException $e) {
             return null;
         }
-    }    
+    }
+
     public function getMeal($id) {
         $query = $this->getEntityManager()
                         ->createQuery(
@@ -47,6 +48,7 @@ class EventRepository extends EntityRepository {
             return null;
         }
     }
+
     public function getMedicine($id) {
         $query = $this->getEntityManager()
                         ->createQuery(
@@ -59,6 +61,7 @@ class EventRepository extends EntityRepository {
             return null;
         }
     }
+
     public function getVisit($id) {
         $query = $this->getEntityManager()
                         ->createQuery(
@@ -71,6 +74,7 @@ class EventRepository extends EntityRepository {
             return null;
         }
     }
+
     public function getTest($id) {
         $query = $this->getEntityManager()
                         ->createQuery(
@@ -152,74 +156,90 @@ class EventRepository extends EntityRepository {
         }
         switch (get_class($event)) {
             case 'SIWOZ\EguardianBundle\Entity\MealEvent':
-                $this->updateMeal($event->getMeal(), $em);
+                $res = $this->updateMeal($event->getMeal(), $em);
                 break;
             case 'SIWOZ\EguardianBundle\Entity\TestEvent':
-                $this->updateTest($event->getTest(), $em);
+                $res = $this->updateTest($event->getTest(), $em);
                 break;
             case 'SIWOZ\EguardianBundle\Entity\VisitEvent':
-                $this->updateVisit($event->getVisit(), $em);
+                $res = $this->updateVisit($event->getVisit(), $em);
                 break;
             case 'SIWOZ\EguardianBundle\Entity\MedicineEvent':
-                $this->updateMedicine($event->getMedicine(), $em);
+                $res = $this->updateMedicine($event->getMedicine(), $em);
                 break;
-
             default:
-                break;
+                return null;
         }
-        $em->merge($oldEvent);
-        $em->flush();
+        if ($res != null) {
+            $em->merge($oldEvent);
+            $em->flush();
+        }
         return $oldEvent;
     }
-    
-    private function updateMeal(Meal $meal, $em){
-        $oldMeal=  $this->getMeal($meal->getId());
-        if($meal->getDescription()!=NULL){
-            $oldMeal->setDescription($meal->getDescription());
+
+    private function updateMeal(Meal $meal, $em) {
+        $oldMeal = $this->getMeal($meal->getId());
+        if ($oldMeal != NULL) {
+            if ($meal->getDescription() != NULL) {
+                $oldMeal->setDescription($meal->getDescription());
+            }
+            if ($meal->getName() != NULL) {
+                $oldMeal->setName($meal->getName());
+            }
+
+            $em->merge($oldMeal);
         }
-        if($meal->getName()!=NULL){
-            $oldMeal->setName($meal->getName());
-        }
-        $em->merge($oldMeal);
-   
+        return $oldMeal;
     }
 
-    private function updateMedicine(Medicine $medicine, $em){
-        $oldMedicine=$this->getMedicine($medicine->getId());
-        if($medicine->getDose()!=NULL){
-            $oldMedicine->setDose($medicine->getDose());
+    private function updateMedicine(Medicine $medicine, $em) {
+        $oldMedicine = $this->getMedicine($medicine->getId());
+        if ($oldMedicine != NULL) {
+            if ($medicine->getDose() != NULL) {
+                $oldMedicine->setDose($medicine->getDose());
+            }
+            if ($medicine->getName() != NULL) {
+                $oldMedicine->setName($medicine->getName());
+            }
+            if ($medicine->getMedicineCategory() != NULL) {
+                $oldMedicine->setMedicineCategory($medicine->getMedicineCategory());
+            }
+            $em->merge($oldMedicine);
         }
-        if($medicine->getName()!=NULL){
-            $oldMedicine->setName($medicine->getName());
-        }
-        if($medicine->getMedicineCategory()!=NULL){
-            $oldMedicine->setMedicineCategory($medicine->getMedicineCategory());
-        }
-        $em->merge($oldMedicine);
+        return $oldMedicine;
     }
-    private function updateTest(Test $test, $em){
-        $oldTest=  $this->getTest($test->getId());
-        if($test->getName()!=NULL){
-            $oldTest->setName($test->getName());
+
+    private function updateTest(Test $test, $em) {
+        $oldTest = $this->getTest($test->getId());
+        if ($oldTest != null) {
+            if ($test->getName() != NULL) {
+                $oldTest->setName($test->getName());
+            }
+            if ($test->getTestCategory() != NULL) {
+                $oldTest->setTestCategory($test->getTestCategory());
+            }
+            $em->merge($oldTest);
         }
-        if($test->getTestCategory()!=NULL){
-            $oldTest->setTestCategory($test->getTestCategory());
-        }
-        $em->merge($oldTest);
+        return $oldTest;
     }
-    private function updateVisit(Visit $visit, $em){
-        $oldVisit= $this->getVisit($visit->getId());
-        if($visit->getDoctorName()!=null){
-            $oldVisit->setDoctorName($visit->getDoctorName());
+
+    private function updateVisit(Visit $visit, $em) {
+        $oldVisit = $this->getVisit($visit->getId());
+        if ($oldVisit != NULL) {
+            if ($visit->getDoctorName() != null) {
+                $oldVisit->setDoctorName($visit->getDoctorName());
+            }
+            if ($visit->getPlace() != null) {
+                $oldVisit->setPlace($visit->getPlace());
+            }
+            if ($visit->getName() != null) {
+                $oldVisit->setName($visit->getName());
+            }
+            $em->merge($oldVisit);
         }
-        if($visit->getPlace()!=null){
-            $oldVisit->setPlace($visit->getPlace());
-        }
-        if($visit->getName()!=null){
-            $oldVisit->setName($visit->getName());
-        }
-        $em->merge($oldVisit);
+        return $oldVisit;
     }
+
     public function deleteEvent($event) {
         $em = $this->getEntityManager();
         $em->remove($event);
