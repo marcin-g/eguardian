@@ -112,7 +112,6 @@ class UserRepository extends EntityRepository implements UserProviderInterface {
         $senior = $this->getUserByUsername($seniorLogin);
         $guardian = $this->getUserByUsername($guardianLogin);
         $senior->addGuardian($guardian);
-        $guardian->addSenior($senior);
         $em->flush();
         return $guardian;
     }
