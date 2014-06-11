@@ -79,22 +79,30 @@ class NotificationController extends Controller {
 
         $notifications = $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->getNotificationToSend();
         $client = new FileGetContents();
-        foreach ($notifications as $notification) {
-            $request = $this->helper->createEventNotificationRequest($notification);
+        
+        $jsonContent = $this->serializer->serialize($notifications, 'json');
+        $a=$jsonContent;
+        $a=$a.' dupa ';
+        for ($index = 0; $index < count($notifications); $index++) {
+    /*        
+        }
+        foreach ($notifications as $notification) {*/
+            $request = $this->helper->createEventNotificationRequest($notifications[$index]);
             $response = new BuzzResponse();
             $client->send($request, $response);
+            $a=$a.$notifications[$index]->getId().' '.count($notifications);
             if ($response->isOk()) {
                 $json_decoded = json_decode($response->getContent());
                 if ($json_decoded->success == 1) {
-                    $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateSuccesNotification($notification);
+                    $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateSuccesNotification($notifications[$index]);
                 } else {
-                    $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notification);
+                    $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notifications[$index]);
                 }
             } else {
-                $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notification);
+                $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->updateFailNotification($notifications[$index]);
             }
         }
-        return new Response("OK");
+        return new Response($a);
     }
 
     public function sendGuardianNotificationAction() {

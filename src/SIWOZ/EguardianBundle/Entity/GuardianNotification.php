@@ -137,7 +137,7 @@ class GuardianNotification {
      */
     public function setSeniorNotification(\SIWOZ\EguardianBundle\Entity\SeniorNotification $seniorNotification = null)
     {
-        $this->seniorNotification = $event;
+        $this->seniorNotification = $seniorNotification;
 
         return $this;
     }
