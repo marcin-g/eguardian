@@ -35,7 +35,7 @@ class MedicineEvent extends Event {
 
     /**
      * @var integer
-     * @Type("int")
+     * @Type("integer")
      * @Groups({"Default", "All"})
      */
     protected $id;
