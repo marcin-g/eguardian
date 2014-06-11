@@ -22,7 +22,7 @@ class Medicine {
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Type("int")
+     * @Type("integer")
      * @Groups({"Default", "All"})
      */
     protected $id;
