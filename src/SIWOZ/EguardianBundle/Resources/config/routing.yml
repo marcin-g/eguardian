@@ -123,7 +123,7 @@ eguardian_event_medicines_post:
     defaults: { _controller: EguardianBundle:Event:updateEvent, className: 'SIWOZ\EguardianBundle\Entity\MedicineEvent' }
     methods:  [POST]   
 eguardian_event_delete:
-    pattern:  /event/{type}
+    pattern:  /event/{type}/{id}
     defaults: { _controller: EguardianBundle:Event:deleteEvent }
     methods:  [DELETE]
     requirements:
