@@ -56,13 +56,13 @@ class Event {
     protected $guardian;
 
     /**
-     * @ORM\Column(name="start_date", type="date")
+     * @ORM\Column(name="start_date", type="datetime")
      * @Type("DateTime")
      * @Groups({"Default", "All","Notification"})
      */
     protected $startDate;
       /**
-     * @ORM\Column(name="end_date", type="date")
+     * @ORM\Column(name="end_date", type="datetime")
      * @Type("DateTime")
      * @Groups({"Default", "All","Notification"})
      */

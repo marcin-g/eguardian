@@ -12,6 +12,8 @@ use SIWOZ\EguardianBundle\Entity\SeniorNotification;
 use SIWOZ\EguardianBundle\Entity\EventData;
 use SIWOZ\EguardianBundle\Entity\SeniorNotificationAdapter;
 use SIWOZ\EguardianBundle\Entity\Event;
+use SIWOZ\EguardianBundle\Entity\Alarm;
+use SIWOZ\EguardianBundle\Entity\AlarmData;
 use Buzz\Message\Request as BuzzRequest;
 use JMS\Serializer;
 use JMS\Serializer\SerializationContext;
@@ -43,12 +45,28 @@ class NotificationHelper {
         $request->addHeaders(array('Content-length: ' . strlen((string) $jsonContent)));
         $request->setContent($jsonContent);
         return $request;
-    }    
+    }
+
     public function createEventNotificationRequestFromEvent($event) {
         $newNotification = new SeniorNotificationAdapter();
         $newNotification->addRegistration_ids($event->getSenior()->getRegistrationId());
         $newNotification->setData(new EventData($event));
-        $jsonContent = $this->serializer->serialize($newNotification, 'json',SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Notification')));
+        $jsonContent = $this->serializer->serialize($newNotification, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Notification')));
+
+        $request = new BuzzRequest('POST', '/gcm/send', 'http://android.googleapis.com');
+        $request->addHeaders(array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o
+          '));
+        $request->addHeaders(array('Content-type: application/json'));
+        $request->addHeaders(array('Content-length: ' . strlen((string) $jsonContent)));
+        $request->setContent($jsonContent);
+        return $request;
+    }
+
+    public function createAlarmRequest(Alarm $alarm) {
+        $newNotification = new SeniorNotificationAdapter();
+        $newNotification->addRegistration_ids($alarm->getGuardian()->getRegistrationId());
+        $newNotification->setData(new AlarmData($alarm));
+        $jsonContent = $this->serializer->serialize($newNotification, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default')));
 
         $request = new BuzzRequest('POST', '/gcm/send', 'http://android.googleapis.com');
         $request->addHeaders(array('Authorization: key=AIzaSyDeBer0F239bCMm5TnVQrz83NLKkAHc58o

@@ -63,7 +63,7 @@ class GuardianNotification {
     
     
     /**
-     * @ORM\Column(name="send_date", type="date")
+     * @ORM\Column(name="send_date", type="datetime")
      * @Type("DateTime")
      * @Groups({"Default", "All"})
      */

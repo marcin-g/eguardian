@@ -59,6 +59,7 @@ security:
         - { path: ^/user/registeredId, roles: ROLE_USER, methods: [POST]}
         - { path: ^/event, roles: ROLE_ADMIN }
         - { path: ^/event, roles: ROLE_USER, methods: [GET] }
+        - { path: ^/alarm/send$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/alarm, roles: ROLE_USER }
        # - { path: ^/user, roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

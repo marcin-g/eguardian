@@ -10,6 +10,7 @@ namespace SIWOZ\EguardianBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use SIWOZ\EguardianBundle\Entity\Alarm;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Description of AlarmNotificationRepository
@@ -22,6 +23,22 @@ class AlarmRepository extends EntityRepository {
         $em = $this->getEntityManager();
         $em->persist($alarm);
         $em->flush();
+    }    
+    public function generateAlarms(\SIWOZ\EguardianBundle\Entity\SeniorUser $user) {
+        
+        $em = $this->getEntityManager();
+        $alarms=new ArrayCollection();
+        foreach ($user->getGuardians() as $guardian) {
+            $alarm=new Alarm();
+            $alarm->setGuardian($guardian);
+            $alarm->setSenior($user);
+            $alarm->setState(0);
+            $alarm->setTry(0);
+            $em->persist($alarm);
+            $alarms[]=$alarm;
+        }
+        $em->flush();
+        return $alarms;
     }
 
     public function getAlarmToSend() {
