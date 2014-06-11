@@ -29,8 +29,8 @@ class SeniorNotificationRepository extends EntityRepository {
         $query = $this->getEntityManager()
                 ->createQuery(
                 'SELECT n FROM SIWOZ\EguardianBundle\Entity\SeniorNotification n
-                                WHERE n.state=0 and n.sendDate < CURRENT_DATE()'
-        );
+                                WHERE n.state=0 and n.sendDate < :date'
+        )->setParameter('date', new \DateTime('now'));
         try {
             return $query->getResult();
         } catch (\Doctrine\ORM\NoResultException $e) {
