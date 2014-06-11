@@ -14,6 +14,7 @@ use SIWOZ\EguardianBundle\Entity\SeniorNotificationAdapter;
 use SIWOZ\EguardianBundle\Entity\Event;
 use SIWOZ\EguardianBundle\Entity\Alarm;
 use SIWOZ\EguardianBundle\Entity\AlarmData;
+use SIWOZ\EguardianBundle\Entity\AlarmAdapter;
 use Buzz\Message\Request as BuzzRequest;
 use JMS\Serializer;
 use JMS\Serializer\SerializationContext;
@@ -63,7 +64,7 @@ class NotificationHelper {
     }
 
     public function createAlarmRequest(Alarm $alarm) {
-        $newNotification = new SeniorNotificationAdapter();
+        $newNotification = new AlarmAdapter();
         $newNotification->addRegistration_ids($alarm->getGuardian()->getRegistrationId());
         $newNotification->setData(new AlarmData($alarm));
         $jsonContent = $this->serializer->serialize($newNotification, 'json', SerializationContext::create()->enableMaxDepthChecks()->setGroups(array('Default')));

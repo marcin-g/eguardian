@@ -60,10 +60,11 @@ class AlarmController extends Controller {
             }
         }
         $this->getDoctrine()->getRepository('EguardianBundle:Alarm')->updateFailNotification($alarm);
+        return $request->getContent();
     }
 
     public function sendAlarmsAction() {
-
+        
         $alarms = $this->getDoctrine()->getRepository('EguardianBundle:Alarm')->getAlarmToSend();
         foreach ($alarms as $alarm) {
             $this->sendAlarmAction($alarm);

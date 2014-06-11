@@ -84,9 +84,6 @@ class NotificationController extends Controller {
         $a=$jsonContent;
         $a=$a.' dupa ';
         for ($index = 0; $index < count($notifications); $index++) {
-    /*        
-        }
-        foreach ($notifications as $notification) {*/
             $request = $this->helper->createEventNotificationRequest($notifications[$index]);
             $response = new BuzzResponse();
             $client->send($request, $response);
