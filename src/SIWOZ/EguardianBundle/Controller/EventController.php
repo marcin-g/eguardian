@@ -75,6 +75,7 @@ class EventController extends Controller {
     public function deleteEventAction($type, $id) {
 //        $json = $this->getRequest()->getContent();
 //        $event = $this->serializer->deserialize($json, 'SIWOZ\EguardianBundle\Entity\Event', 'json');
+        $this->getDoctrine()->getRepository('EguardianBundle:SeniorNotification')->deleteNotifcationsByEventId($id);
         $this->getDoctrine()->getRepository('EguardianBundle:Event')->deleteEventById($id);
         return new Response("OK");
     }

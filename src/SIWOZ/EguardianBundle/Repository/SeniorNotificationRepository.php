@@ -90,4 +90,13 @@ class SeniorNotificationRepository extends EntityRepository {
         }
     }
 
+    public function deleteNotifcationsByEventId($id) {
+        $query = $this->getEntityManager()
+                        ->createQuery(
+                                'DELETE SIWOZ\EguardianBundle\Entity\SeniorNotification n
+                                WHERE n.event_id=:id'
+                        )->setParameter('id', $id);
+        return $query->execute();
+    }
+
 }
