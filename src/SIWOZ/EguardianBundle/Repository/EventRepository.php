@@ -257,5 +257,11 @@ class EventRepository extends EntityRepository {
         $em->remove($event);
         $em->flush();
     }
+    
+    public function deleteEventById($id) {
+        $em = $this->getEntityManager();
+        $em->remove($this->findOneById($id));
+        $em->flush();
+    }
 
 }
