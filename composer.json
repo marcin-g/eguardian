@@ -21,7 +21,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "symfony/serializer": "v2.4.4",
         "jms/serializer": "dev-master",
-        "curl/curl": "1.1.2"
+        "curl/curl": "1.1.2",
+        "doctrine/doctrine-fixtures-bundle": "v2.2.0"
     },
     "scripts": {
         "post-install-cmd": [
